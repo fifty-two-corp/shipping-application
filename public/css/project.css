@@ -1,0 +1,12 @@
+.no-border {
+	border: 0 !important;
+	box-shadow: none !important;
+}
+
+.no-extras {
+	background-color: white !important;
+	cursor: default !important;
+	font-weight: bold !important;
+	color: black;
+	font-family: arial;
+}
