@@ -136,7 +136,7 @@ class VehicleController extends Controller {
   }
 
   public function destroy($id) {
-    $delete_vehicle = Customer::find($id);
+    $delete_vehicle = Vehicle::find($id);
     $delete_vehicle->deleted_by = Auth::user()->id;
     $delete_vehicle->save();
     $delete_vehicle->delete();

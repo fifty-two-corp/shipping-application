@@ -37,5 +37,5 @@
       thousandsSeparator:'.',
       centsLimit: 0
     });
-});
+  });
 </script>

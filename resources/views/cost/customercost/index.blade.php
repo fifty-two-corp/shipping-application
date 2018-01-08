@@ -46,14 +46,13 @@
 
 @push('js')
 
-<!-- datatables -->
 <script type="text/javascript">
   $('#cost-menu').addClass('active');
   $('#customercost-menu').addClass('active');
   var listener = new window.keypress.Listener();
   $(document).ready(function() {
   customercostTable = $('#customer_cost_table').DataTable({
-    processing: true,
+    processing: false,
     serverSide: true,
     ajax: {
       url:'{{ url("customer-cost/get-customer-cost") }}', 
@@ -70,12 +69,11 @@
     language: {
       "zeroRecords": "Customer Cost not found...",
       "loadingRecords": "Loading...",
-      "processing": "Load Data"
     },
     columns: [
       { data: 'customer'},
-      { data: 'origin_provinces'},
-      { data: 'destination_provinces'},
+      { data: 'origin_city'},
+      { data: 'destination_city'},
       { data: 'type'},
       { data: 'cost'}
     ]

@@ -27,41 +27,31 @@
 	<!-- ================== END BASE JS ================== -->
 </head>
 <body class="pace-top bg-white">
-	<!-- begin #page-loader -->
 	<div id="page-loader" class="fade in"><span class="spinner"></span></div>
-	<!-- end #page-loader -->
-	
-	<!-- begin #page-container -->
 	<div id="page-container" class="fade">
-	    <!-- begin login -->
         <div class="login login-with-news-feed">
-            <!-- begin news-feed -->
             <div class="news-feed">
                 <div class="news-image">
-                    <img src="{{ asset('public/img/login-bg/bg-7.jpg') }}" data-id="login-cover-image" alt="" />
+                    <img src="{{ asset('public/img/bg-7.jpg') }}" data-id="login-cover-image" alt="" />
                 </div>
-                <!-- <div class="news-caption">
-                    <h4 class="caption-title"><i class="fa fa-diamond text-success"></i> Announcing the Color Admin app</h4>
+                <div class="news-caption">
+                    <h4 class="caption-title">CARGO SERVICE - JAWA, BALI, SUMATRA</h4>
                     <p>
-                        Download the Color Admin app for iPhone®, iPad®, and Android™. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        Perum. Taman Hedona, Blok B5/3, Lingkar Timur, Siduarjo, Telp./Fax: (031) 807 6110, (031) 716 25334
                     </p>
-                </div> -->
+                </div>
             </div>
-            <!-- end news-feed -->
-            <!-- begin right-content -->
             <div class="right-content">
-                <!-- begin login-header -->
                 <div class="login-header">
                     <div class="brand">
-                        <span class="logo"></span> CV. JUJUR PERKASA
+                        <div align="center" style="padding-bottom: 20px"><img src="{{ asset('public/img/jp-logo.png') }}" data-id="login-cover-image" width="100px" alt="" /></div>
+                        <img src="{{ asset('public/img/jp-name-logo.png') }}" data-id="login-cover-image" width="380px" alt="" />
                         <small></small>
                     </div>
-                    <div class="icon">
+                    <!-- <div class="icon">
                         <i class="fa fa-sign-in"></i>
-                    </div>
+                    </div> -->
                 </div>
-                <!-- end login-header -->
-                <!-- begin login-content -->
                 <div class="login-content">
                     <form class="margin-bottom-0" method="POST" action="{{ route('login') }}">
                         <div class="form-group m-b-15 form-group{{ $errors->has('email') ? ' has-error' : '' }}">
@@ -86,11 +76,11 @@
                             </label>
                         </div>
                         <div class="login-buttons">
-                            <button type="submit" class="btn btn-success btn-block btn-lg">Sign me in</button>
+                            <button type="submit" class="btn btn-primary btn-block btn-lg">Sign in</button>
                         </div>
-                        <div class="m-t-20 m-b-40 p-b-40">
+                        <!-- <div class="m-t-20 m-b-40 p-b-40">
                             Not a member yet? Click <a href="register_v3.html" class="text-success">here</a> to register.
-                        </div>
+                        </div> -->
                         <hr />
                         <p class="text-center text-inverse">
                             &copy; Fifty Two All Right Reserved {{ date("Y") }}
@@ -115,7 +105,7 @@
 		<script src="{{ asset('public/crossbrowserjs/respond.min.js') }}"></script>
 		<script src="{{ asset('public/crossbrowserjs/excanvas.min.js') }}"></script>
 	<![endif]-->
-	<script src="{{ asset('public/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
+	<!-- <script src="{{ asset('public/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script> -->
 	<script src="{{ asset('public/plugins/jquery-cookie/jquery.cookie.js') }}"></script>
 	<!-- ================== END BASE JS ================== -->
 	

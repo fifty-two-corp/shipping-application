@@ -19,21 +19,21 @@ class MenuController extends Controller {
 	}
 
  	public function getParentMenu(Request $request) {
- 		//if($request->ajax()){
+ 		if($request->ajax()){
       $parent_menu = ParentMenu::orderBy('no_order');
  			return Datatables::of($parent_menu)->make(true);
- 		//} else {
-     // return abort(404);
- 		//}
+ 		} else {
+      return abort(404);
+ 		}
  	}
 
   public function getChildMenu($id) {
-    //if($request->ajax()){
+    if($request->ajax()){
       $child_menu = ChildMenu::where('parent_menu_id',$id);
       return Datatables::of($child_menu)->make(true);
-    //} else {
-     // return abort(404);
-    //}
+    } else {
+      return abort(404);
+    }
   }
 
  	public function create() {

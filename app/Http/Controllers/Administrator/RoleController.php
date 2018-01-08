@@ -38,10 +38,10 @@ class RoleController extends Controller {
       'description' => 'required'
     ]);
     
-    $role = new Role();
-    $role->name = $request->input('name');
-    $role->display_name = $request->input('display_name');
-    $role->description = $request->input('description');
+    $role                 = new Role();
+    $role->name           = $request->input('name');
+    $role->display_name   = $request->input('display_name');
+    $role->description    = $request->input('description');
     $role->save();
     if ($request->input('permission') != NULL){
       $permission = explode(",",$request->input('permission'));
@@ -70,9 +70,9 @@ class RoleController extends Controller {
 
   public function update(Request $request, $id) {
     $this->validate($request, [
-      'name' => 'required|unique:permissions,name',
-      'display_name' => 'required|unique:permissions,display_name',
-      'description' => 'required'
+      'name'          => 'required|unique:permissions,name',
+      'display_name'  => 'required|unique:permissions,display_name',
+      'description'   => 'required'
     ]);
 
     $role = Role::find($id);

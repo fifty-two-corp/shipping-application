@@ -13,7 +13,7 @@
   <div class="form-group">
       <label class="col-md-4 control-label">Name</label>
       <div class="col-md-8">
-        {!! Form::select('vendor',['0' => '-- Please Select --'] + $vendor_list ,[], ['class' => 'form-control', 'id' => 'vendor_list', 'onchange' => 'get_vendor_data()']) !!}
+        {!! Form::select('vendor',['' => '-- Please Select --'] + $vendor,[], ['class' => 'form-control', 'id' => 'vendor_list', 'onchange' => 'get_vendor_data()', 'required']) !!}
       </div>
   </div>
 </div>
@@ -29,9 +29,9 @@
 
 <div class="col-xs-12 col-sm-12 col-md-12">
   <div class="form-group">
-    <label class="col-md-4 control-label">NPWP</label>
+    <label class="col-md-4 control-label">Shipping Type</label>
     <div class="col-md-8">
-      {!! Form::text('vendor_npwp', null, ['placeholder' => '-','class' => 'form-control no-border no-extras', 'id' => 'vendor_npwp','disabled']) !!}
+      {!! Form::select('shipping_type',['' => '-- Please Select --'],[], ['class' => 'form-control', 'id' => 'vendor_shipping_type', 'onchange' => 'get_vendor_calculation_cost()', 'required']) !!}
     </div>
   </div>
 </div>

@@ -193,7 +193,7 @@ class MenuPermissionController extends Controller {
   public function updatePermission(Request $request, $id) {
     $permission = Permission::find($id);
     $this->validate($request, [
-      'name'          => 'required|unique:permissions,name,'.$permission->id.',deleted_at,NULL',
+      'name'          => 'required|unique:permissions,name,'.$permission->id,
       'display_name'  => 'required',
       'description'   => 'required',
       'child_menu'    => 'required',

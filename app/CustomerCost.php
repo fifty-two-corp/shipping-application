@@ -3,13 +3,10 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CustomerCost extends Model {
-  use SoftDeletes;
 
   protected $table = 'customer_cost';
-  protected $dates = ['deleted_at'];
   protected $guarded = [];
 
   public function created_user() {
@@ -28,11 +25,19 @@ class CustomerCost extends Model {
 	  return $this->belongsTo('App\Customer');
 	}
 
-	public function origin_provinces() {
-	  return $this->belongsTo('App\Provinces');
-	}
-
-  public function destination_provinces() {
+	public function destination_provinces() {
     return $this->belongsTo('App\Provinces');
+  }
+
+  public function destination_city() {
+    return $this->belongsTo('App\City');
+  }
+
+  public function origin_provinces() {
+    return $this->belongsTo('App\Provinces');
+  }
+
+  public function origin_city() {
+    return $this->belongsTo('App\City');
   }
 }

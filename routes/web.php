@@ -11,17 +11,15 @@
 |
 */
 
-Route::get('/', function () {
-    return redirect()->route('home');
-});
+// Route::get('/', function () {
+//     return redirect()->route('home');
+// });
 
 Auth::routes();
-
-//Route::get('/home', 'HomeController@index')->name('home');
-
 Route::group(['middleware' => ['auth']], function() {
+	Route::get('/', 'HomeController@index');
+	Route::get('/home', 'HomeController@index');
 	Route::get('logout', 'Auth\LoginController@logout');
-	Route::get('home', 'HomeController@index')->name('home');
 
 	Route::get('get-city/{id}', 'IndonesiaController@getCity');
 	Route::get('get-district/{id}', 'IndonesiaController@getDistrict');
@@ -117,10 +115,25 @@ Route::group(['middleware' => ['auth']], function() {
 
 	//Transaction - Shipping
 	Route::get('shipping','Transaction\ShippingController@index');
+	Route::get('shipping/shipping-list','Transaction\ShippingController@ShippingList');
+	Route::get('shipping/get-shipping-list','Transaction\ShippingController@getShippingList');
 	Route::get('shipping/get-customer-data/{id}','Transaction\ShippingController@getCustomerData');
+	Route::get('shipping/get-shipping-mehod-field','Transaction\ShippingController@getShippingMethodField');
+	Route::get('shipping/get-default-form/customer/{customer}/destination/{destination}','Transaction\ShippingController@getDefaultForm');
+	Route::get('shipping/get-vendor-form/customer/{customer}/province/{province}','Transaction\ShippingController@getVendorForm');
+	Route::get('shipping/get-vendor-data/{id}','Transaction\ShippingController@getVendorData');
+	Route::get('shipping/get-vendor-shipping-type/customer/{customer}/destination/{destination}/vendor/{vendor}','Transaction\ShippingController@getVendorShippingType');
 	Route::get('shipping/get-customer-shipping-type/{id}','Transaction\ShippingController@getCustomerShippingType');
-	Route::get('shipping/get-calculation-cost/{origin}/{destination}/{customer}','Transaction\ShippingController@getCalculateCost');
+	Route::get('shipping/get-calculation-default-cost/{id}','Transaction\ShippingController@getCalculateDefaultCost');
+	Route::get('shipping/get-calculation-vendor-cost/{id}','Transaction\ShippingController@getCalculateVendorCost');
 	Route::post('shipping/store','Transaction\ShippingController@store');
+	Route::get('shipping/{id}/edit','Transaction\ShippingController@edit');
+	Route::delete('shipping/{id}','Transaction\ShippingController@destroy');
+	Route::get('shipping/details/{id}', 'Transaction\ShippingController@getShippingDetails');
+	Route::get('shipping/invoice/{id}', 'Transaction\ShippingController@invoice');
+	Route::get('shipping/pdf/invoice/{id}', 'Transaction\ShippingController@invoicePdf');
+	Route::get('shipping/installment-form', 'Transaction\ShippingController@getInstallmentForm');
+	Route::patch('shipping/{id}','Transaction\ShippingController@update');
 
 	// Administrator - Users
 	Route::get('users','Administrator\UsersController@index');

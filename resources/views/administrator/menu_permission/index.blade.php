@@ -37,8 +37,8 @@
         </div>
         <div class="col-md-6" id="child_menu_view"></div>
       </div>
-    </div><!-- end panel -->
-  </div><!-- end row -->
+    </div><
+  </div>
   <div class="row">
     <div class="panel panel-inverse" data-sortable-id="form-stuff-5">
         <div class="panel-heading">
@@ -316,7 +316,7 @@ function get_child_menu_default() {
     success: function(data){
       $('#modal_child_menu').modal('hide');
       swal('Added','','success');
-      reload_data_parent();
+      reload_data_child();
     },
       error: function(data){
         $('#child-allert').removeAttr('hidden');
@@ -349,6 +349,7 @@ function save_child_edit_data(){
     data:$('#form-edit-child').serialize(),
     dataType: 'json',
     success: function(data){
+      console.log(data);
       $('#modal_child_menu').modal('hide');
       swal('Updated','','success');
       reload_data_child();

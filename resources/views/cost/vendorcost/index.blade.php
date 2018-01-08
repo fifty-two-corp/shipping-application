@@ -40,51 +40,53 @@
             </div>
             <div class="modal fade" id="modal_vendor_cost" tabindex="-1" role="dialog" aria-labelledby="modal_vendor_cost" aria-hidden="true"></div>
           </div>
-      </div><!-- end panel -->
-    </div><!-- end row -->
+      </div>
+    </div>
 </div>
 @endsection
 
 @push('js')
 
-<!-- datatables -->
 <script type="text/javascript">
+  
   $('#cost-menu').addClass('active');
   $('#vendorcost-menu').addClass('active');
-  var listener = new window.keypress.Listener();
+
+  var form = $('#form-vendor-cost');
+  var formData = form.serialize();
+
   $(document).ready(function() {
-  vendorcostTable = $('#vendor_cost_table').DataTable({
-    processing: true,
-    serverSide: true,
-    ajax: {
-      url:'{{ url("vendor-cost/get-vendor-cost") }}', 
-      searchHighlight: true,
+    vendorcostTable = $('#vendor_cost_table').DataTable({
+      processing: true,
+      serverSide: true,
+      ajax: {
+        url:'{{ url("vendor-cost/get-vendor-cost") }}', 
+        searchHighlight: true,
+        deferRender: true,
+      },
       deferRender: true,
-    },
-    deferRender: true,
-    responsive:true,
-    keys: true,
-    sorting: [[0,"asc"]],
-    pagingType: "full_numbers",
-    dom:'C<"clear">lfrtip',
-    stateSave: false,
-    language: {
-      "zeroRecords": "Vendor Cost not found...",
-      "loadingRecords": "Loading...",
-      "processing": "Load Data"
-    },
-    columns: [
-      
-      { data: 'vendor'},
-      { data: 'customer'},
-      { data: 'origin_provinces'},
-      { data: 'destination_provinces'},
-      { data: 'type'},
-      { data: 'cost'}
-    ]
+      responsive:true,
+      keys: true,
+      sorting: [[0,"asc"]],
+      pagingType: "full_numbers",
+      dom:'C<"clear">lfrtip',
+      stateSave: false,
+      language: {
+        "zeroRecords": "Vendor Cost not found...",
+        "loadingRecords": "Loading...",
+        "processing": "Load Data"
+      },
+      columns: [
+        { data: 'vendor'},
+        { data: 'customer'},
+        { data: 'origin_city'},
+        { data: 'destination_city'},
+        { data: 'type'},
+        { data: 'cost'}
+      ]
   });
 
-  $("#vendor_cost_table tbody").on("click","tr",function() { //highlight on click row
+  $("#vendor_cost_table tbody").on("click","tr",function() {
     if ($(this).hasClass("active")) {
       $(this).removeClass("active");
       $("a.btn_dynamic").addClass("disabled");
@@ -130,24 +132,24 @@ function show_modal_edit_vendor_cost() {
   });
 }
 
-function save_vendor_cost_data(){
-  $.ajaxSetup({
-    header:$('meta[name="_token"]').attr('content')
-  })
+function save_vendor_cost_data(formData){
+  $.ajaxSetup({ header:$('meta[name="_token"]').attr('content') })
   $.ajax({
     type:"POST",
     url:'vendor-cost/store',
-    data:$('#form-vendor-cost-add').serialize(),
+    data:$('#form-vendor-cost').serialize(),
     dataType: 'json',
     success: function(data){
-      console.log(data);
-      $('#modal_vendor_cost').modal('hide');
-      swal('Added','','success');
-      reload_data();
-    },
-      error: function(data){
-        console.log(data);
-        $('#vendor-cost-allert').removeAttr('hidden');
+      if(data.errors) {
+        associate_errors(data.errors);
+      }
+      if(data.success) {
+        $('#modal_vendor_cost').modal('hide');
+        swal('Added','','success');
+        reload_data();
+      }
+    }, error: function(response){
+        swal('Something Wrong','Please Report Bug to Development Program','error');
     }
   })
 };
@@ -163,15 +165,18 @@ function save_edit_vendor_cost_data(){
     type:"PATCH",
     url:'vendor-cost/'+id,
     data:$('#form-edit-vendor-cost').serialize(),
-    
     success: function(data){
-      //console.log(data);
-      $('#modal_vendor_cost').modal('hide');
-      swal('Updated','','success');
-      reload_data();
+      if(data.errors) {
+        associate_errors(data.errors);
+      }
+      if(data.success) {
+        $('#modal_vendor_cost').modal('hide');
+        swal('Updated','','success');
+        reload_data();
+      }
     },
       error: function(data){
-        $('#vendor-cost-allert').removeAttr('hidden');
+        swal('Something Wrong','Please Report Bug to Development Program','error');
     }
   })
 };
@@ -213,5 +218,73 @@ function reload_data() {
   $("a#btn_delete").removeClass("btn-danger");
   $("a.btn_dynamic").addClass("btn-default");
 }
+
+function associate_errors(errors) {
+  if(errors.vendor){
+    $('#vendor-error').html('');
+    $('#vendor-field').addClass('has-error');
+    $('#vendor-error').html(errors.vendor[0]);
+  } else {
+    $('#vendor-field').removeClass('has-error');
+    $('#vendor-error').html('');
+  }
+  if(errors.customer){
+    $('#customer-error').html('');
+    $('#customer-field').addClass('has-error');
+    $('#customer-error').html(errors.customer[0]);
+  } else {
+    $('#customer-field').removeClass('has-error');
+    $('#customer-error').html('');
+  }
+  if(errors.org_provinces){
+    $('#org_provinces-error').html('');
+    $('#org_provinces-field').addClass('has-error');
+    $('#org_provinces-error').html(errors.org_provinces[0]);
+  } else {
+    $('#org_provinces-field').removeClass('has-error');
+    $('#org_provinces-error').html('');
+  }
+  if(errors.org_city){
+    $('#org_city-error').html('');
+    $('#org_city-field').addClass('has-error');
+    $('#org_city-error').html(errors.org_city[0]);
+  } else {
+    $('#org_city-field').removeClass('has-error');
+    $('#org_city-error').html('');
+  }
+  if(errors.dest_provinces){
+    $('#dest_provinces-error').html('');
+    $('#dest_provinces-field').addClass('has-error');
+    $('#dest_provinces-error').html(errors.dest_provinces[0]);
+  } else {
+    $('#dest_provinces-field').removeClass('has-error');
+    $('#dest_provinces-error').html('');
+  }
+  if(errors.dest_city){
+    $('#dest_city-error').html('');
+    $('#dest_city-field').addClass('has-error');
+    $('#dest_city-error').html(errors.dest_city[0]);
+  } else {
+    $('#dest_city-field').removeClass('has-error');
+    $('#dest_city-error').html('');
+  }
+  if(errors.type){
+    $('#type-error').html('');
+    $('#type-field').addClass('has-error');
+    $('#type-error').html(errors.type[0]);
+  } else {
+    $('#type-field').removeClass('has-error');
+    $('#type-error').html('');
+  }
+  if(errors.cost){
+    $('#cost-error').html('');
+    $('#cost-field').addClass('has-error');
+    $('#cost-error').html(errors.cost[0]);
+  } else {
+    $('#cost-field').removeClass('has-error');
+    $('#cost-error').html('');
+  }
+}
+
 </script>
 @endpush

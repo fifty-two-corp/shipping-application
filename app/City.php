@@ -25,4 +25,12 @@ class City extends Model {
     return $this->hasMany('App\Employess');
   }
 
+  public function customer_cost() {
+    return $this->hasMany('App\CustomerCost');
+  }
+
+  public function vendor_cost() {
+    return $this->hasMany('App\VendorCost');
+  }
+
 }
