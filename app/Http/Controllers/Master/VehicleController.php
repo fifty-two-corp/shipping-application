@@ -60,7 +60,7 @@ class VehicleController extends Controller {
   public function store(Request $request) {
     $this->validate($request, [
       'name'            => 'required',
-      'plat_number'     => 'required',
+      'plat_number'     => 'required|unique:vehicle,plat_number,NULL,id,deleted_at,NULL',
       'driver'          => 'required',
       'type'            => 'required',
       'merk'            => 'required',
@@ -109,7 +109,7 @@ class VehicleController extends Controller {
     
     $this->validate($request, [
       'name'            => 'required',
-      'plat_number'     => 'required',
+      'plat_number'     => 'required|unique:vehicle,plat_number,NULL,{$vehicle->id},deleted_at,NULL',
       'driver'          => 'required',
       'type'            => 'required',
       'merk'            => 'required',

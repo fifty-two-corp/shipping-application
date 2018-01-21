@@ -48,7 +48,7 @@ class CustomerController extends Controller {
 
   public function store(Request $request) {
     $this->validate($request, [
-      'customer_number'   => 'required|unique:customer,customer_number',
+      'customer_number'   => 'required|unique:customer,customer_number,NULL,id,deleted_at,NULL',
       'name'              => 'required',
       'address'           => 'required',
       'province'          => 'required',
@@ -101,7 +101,7 @@ class CustomerController extends Controller {
     $customer   = Customer::find($id);
     
     $this->validate($request, [
-      'customer_number'   => 'required | unique:customer,customer_number,'.$customer->id,
+      'customer_number'   => 'required|unique:customer,customer_number,NULL,{$customer->id},deleted_at,NULL',
       'name'              => 'required',
       'address'           => 'required',
       'province'          => 'required',

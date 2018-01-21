@@ -215,9 +215,20 @@ class ShippingController extends Controller {
       $due_date = Carbon::parse($due_date)->toFormattedDateString();
       $pdf = PDF::loadView('transaction/invoice/index', compact('data', 'date', 'due_date'))
       ->setPaper('A4');
-      return $pdf->download('invoice.pdf', $headers);
+      return $pdf->download('invoice #('.$id.').pdf', $headers);
       //return view('transaction/invoice/invoice-pdf', compact('data', 'date'));
+    }
 
+    public function doPdf($id) {
+      $headers = ['Content-Type'=> 'application/pdf'];
+      $data = Shipping::with('load_list','shipping_vendor', 'shipping_customer', 'shipping_destination', 'shipping_vehicle')->find($id);
+      $date = Carbon::parse($data->created_at)->toFormattedDateString();
+      $due_date = date('Y-m-d', strtotime('+'.$data->termin.'days', strtotime($data->created_at)));
+      $due_date = Carbon::parse($due_date)->toFormattedDateString();
+      $pdf = PDF::loadView('transaction/invoice/index', compact('data', 'date', 'due_date'))
+      ->setPaper('A4');
+      //return $pdf->download('invoice.pdf', $headers);
+      return view('transaction/do/index', compact('data', 'date', 'due_date'));
     }
 
     public function getInstallmentForm() {
@@ -229,7 +240,7 @@ class ShippingController extends Controller {
     }
 
     public function getShippingList(Request $request){
-      //if($request->ajax()){
+      if($request->ajax()){
         $shipping_list = Shipping::with('shipping_vendor', 'shipping_customer', 'shipping_destination', 'shipping_vehicle')->get();
         
         return Datatables::of($shipping_list)
@@ -258,11 +269,10 @@ class ShippingController extends Controller {
           }
           return $shipping_list->status? with($status) : $tatus;
         })
-        ->rawColumns(['status'])
-        ->make(true);
-      //} else {
-       // return abort(404);
-      //}
+        ->rawColumns(['status'])->make(true);
+      } else {
+        return abort(404);
+      }
     }
 
     public function getShippingDetails($id) {

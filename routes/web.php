@@ -132,6 +132,7 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::get('shipping/details/{id}', 'Transaction\ShippingController@getShippingDetails');
 	Route::get('shipping/invoice/{id}', 'Transaction\ShippingController@invoice');
 	Route::get('shipping/pdf/invoice/{id}', 'Transaction\ShippingController@invoicePdf');
+	Route::get('shipping/pdf/do/{id}', 'Transaction\ShippingController@doPdf');
 	Route::get('shipping/installment-form', 'Transaction\ShippingController@getInstallmentForm');
 	Route::patch('shipping/{id}','Transaction\ShippingController@update');
 

@@ -49,7 +49,7 @@ class EmployeesController extends Controller {
 
   public function store(Request $request) {
     $this->validate($request, [
-      'employees_number'  => 'required|unique:employees,employees_number',
+      'employees_number'  => 'required|unique:employees,employees_number,NULL,id,deleted_at,NULL',
       'name'              => 'required',
       'address'           => 'required',
       'province'          => 'required',
@@ -108,7 +108,7 @@ class EmployeesController extends Controller {
     $employees = Employees::find($id);
     
     $this->validate($request, [
-      'employees_number'  => 'required|unique:employees,employees_number,'.$employees->id,
+      'employees_number'  => 'required|unique:employees,employees_number,NULL,{$employees->id},deleted_at,NULL',
       'name'              => 'required',
       'address'           => 'required',
       'province'          => 'required',
@@ -134,10 +134,10 @@ class EmployeesController extends Controller {
   }
 
   public function destroy($id) {
-    $delete_employees = Employees::find($id);
-    $delete_employees->deleted_by = Auth::user()->id;
-    $delete_employees->save();
-    $delete_employees->delete();
+    $delete_employes = Employees::find($id);
+    $delete_employes->deleted_by = Auth::user()->id;
+    $delete_employes->save();
+    $delete_employes->delete();
     return response()->json(['responseText' => 'Deleted'], 200);
   }
 }

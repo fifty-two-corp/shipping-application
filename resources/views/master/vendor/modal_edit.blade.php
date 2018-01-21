@@ -7,10 +7,7 @@
     <div class="modal-body">
       {!! Form::model($vendor, ['method' => 'PATCH', 'class' => 'form-horizontal', 'id' => 'form-edit-vendor']) !!}
         <div class="row">
-          <div class="alert alert-danger fade in m-b-15" id="cutomer-allert" hidden>
-            <strong>Whoops!</strong> There were some problems with your input.
-            <span class="close" data-dismiss="alert">×</span>
-          </div>
+          <div id="alert"></div>
           <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
               <label class="col-md-3 control-label">Vendor Number</label>

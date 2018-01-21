@@ -6,8 +6,7 @@ namespace App;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
 
-class User extends Authenticatable
-{
+class User extends Authenticatable {
   use EntrustUserTrait;
 
   /**
@@ -15,9 +14,8 @@ class User extends Authenticatable
    *
    * @var array
    */
-  protected $fillable = [
-    'name', 'email', 'password', 'username',
-  ];
+  protected $fillable = ['name', 'email', 'password', 'username'];
+  protected $dates = ['deleted_at'];
 
   /**
    * The attributes that should be hidden for arrays.

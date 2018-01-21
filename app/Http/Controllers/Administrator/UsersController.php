@@ -36,8 +36,8 @@ class UsersController extends Controller {
   public function store(Request $request) {
     $this->validate($request, [
       'name'      => 'required',
-      'username'  => 'required|unique:users,username',
-      'email'     => 'required|email|unique:users,email',
+      'username'  => 'required|unique:users,username,NULL,id,deleted_at,NULL',
+      'email'     => 'required|email|unique:users,email,NULL,id,deleted_at,NULL',
       'password'  => 'required|same:confirm-password',
       'roles'     => 'required'
     ]);
@@ -65,8 +65,8 @@ class UsersController extends Controller {
     $user       = User::find($id);
     $this->validate($request, [
         'name'      => 'required',
-        'username'  => 'required|unique:users,username,'.$user->id,
-        'email'     => 'required|email|unique:users,email,'.$user->id,
+        'username'  => 'required|unique:users,username,NULL,{$user->id},deleted_at,NULL',
+        'email'     => 'required|email|unique:users,email,NULL,{$user->id},deleted_at,NULL',
         'password'  => 'same:confirm-password',
         'roles'     => 'required'
     ]);
@@ -87,7 +87,9 @@ class UsersController extends Controller {
   }
 
   public function destroy($id) {
-    $user_delete = User::find($id);
+    $user_delete = Vendor::find($id);
+    $user_delete->deleted_by = Auth::user()->id;
+    $user_delete->save();
     $user_delete->delete();
     return response()->json(['responseText' => 'Deleted'], 200);
   }

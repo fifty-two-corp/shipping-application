@@ -147,9 +147,15 @@ function save_vendor_data(){
       swal('Added','','success');
       reload_data();
     },
-      error: function(data){
-        console.log(data);
-        $('#vendor-allert').removeAttr('hidden');
+    error: function(data){
+      $('#alert').html('');
+      if(data.status == 422) {
+        for (var error in data.responseJSON) {
+          $('#alert').append('<div class="alert alert-warning fade in m-b-15"  role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+ data.responseJSON[error] +'</div>');
+        }
+      } else {
+        $('#alert').append('<div class="alert alert-danger fade in m-b-15"  role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>Someting wrong, please contact administrator</div>');
+      }
     }
   })
 };
@@ -172,8 +178,15 @@ function save_edit_vendor_data(){
       swal('Updated','','success');
       reload_data();
     },
-      error: function(data){
-        $('#vendor-allert').removeAttr('hidden');
+    error: function(data){
+      $('#alert').html('');
+      if(data.status == 422) {
+        for (var error in data.responseJSON) {
+          $('#alert').append('<div class="alert alert-warning fade in m-b-15"  role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+ data.responseJSON[error] +'</div>');
+        }
+      } else {
+        $('#alert').append('<div class="alert alert-danger fade in m-b-15"  role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>Someting wrong, please contact administrator</div>');
+      }
     }
   })
 };

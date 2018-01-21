@@ -19,7 +19,7 @@
                       <p>
                         <section style='position: relative;clear: both;margin: 5px 0;height: 1px;border-top: 1px solid #cbcbcb;margin-bottom: 25px;margin-top: 10px;text-align: center;'>
                             <h3 align='center' style='margin-top: -12px;background-color: #FFF;clear: both;width: 180px;margin-right: auto;margin-left: auto;padding-left: 15px;padding-right: 15px; font-family: arial,sans-serif;'>
-                                <span>INVOICE</span>
+                                <span>DELIVERY ORDER</span>
                             </h3>
                         </section>
                       </p>            
@@ -70,12 +70,12 @@
                                     <tr>
                                       <td valign='top' style='color:#404041;font-size:12px;padding:0px 5px 0px 5px'>
                                         <p>
-                                          {{ $data->shipping_customer->customer_name }}<br>
-                                          {{ $data->shipping_customer->customer_address }}<br>
-                                          {{ $data->shipping_customer->customer_district }}<br>
-                                          {{ $data->shipping_customer->customer_city }}<br>
-                                          {{ $data->shipping_customer->customer_province }}<br>
-                                          <strong>Tel: </strong>{{ $data->shipping_customer->customer_phone }}
+                                          {{ $data->customer_name }}<br>
+                                          {{ $data->customer_address }}<br>
+                                          {{ $data->customer_district }}<br>
+                                          {{ $data->customer_city }}<br>
+                                          {{ $data->customer_province }}<br>
+                                          <strong>Tel: </strong>{{ $data->customer_phone }}
                                         </p>
                                       </td>
                                     </tr>
@@ -93,12 +93,12 @@
                                   <tr>
                                     <td valign='top' style='color:#404041;font-size:12px;line-height:16px;padding:0px 5px 0px 5px'>
                                       <p>
-                                        {{ $data->shipping_destination->consignee_name }}<br>
-                                        {{ $data->shipping_destination->consignee_address }}<br>
-                                        {{ $data->shipping_destination->consignee_district }}<br>
-                                        {{ $data->shipping_destination->consignee_city }}<br>
-                                        {{ $data->shipping_destination->consignee_province }}<br>
-                                        <strong>Tel: </strong>{{ $data->shipping_destination->consignee_phone }}
+                                        {{ $data->consignee_name }}<br>
+                                        {{ $data->consignee_address }}<br>
+                                        {{ $data->consignee_district }}<br>
+                                        {{ $data->consignee_city }}<br>
+                                        {{ $data->consignee_province }}<br>
+                                        <strong>Tel: </strong>{{ $data->consignee_phone }}
                                       </p>
                                     </td>
                                   </tr>
@@ -207,29 +207,14 @@
                         </tbody>
                       </table>
                       <table width='0' border='0' align='left' cellpadding='0' cellspacing='0'>
+                        <span><h4 style='color: #848484; font-family: arial,sans-serif; font-weight: 200;'>Banking Details</h4></span>
                         <tbody>
-                          @if($data->termin != null)
-                          <tr style="background-color:#f2f2f2">
-                            <td colspan="2" style="padding:10px 5px 3px 10px; font-size:13px;">
-                              <strong>Termin </strong>{{ $data->termin }} Days
-                            </td>
-                          </tr>
-                          <tr style="background-color:#f2f2f2;padding-bottom: 20px">
-                            <td colspan="2" style="padding:5px 10px 10px 10px; font-size:13px;">
-                              <strong>Due Date </strong> {{ $due_date }}
-                            </td>
-                          </tr>
-                          <tr style="padding-bottom: -50px;">
-                            <td colspan="2">
-                              <span><h4 style='color: #848484; font-family: arial,sans-serif; font-weight: 200; padding-top: 20px;'>Banking Details</h4></span>
-                            </td>
-                          </tr>
                           <tr>
                             <td width='0' align='left' valign='top' style='color:#404041;font-size:12px;line-height:16px;padding:0px 0px 3px 0px'>
                                 <strong>Bank:</strong> 
                             </td>
                             <td width='0' align='right' valign='top' style='color:#404041;font-size:12px;line-height:16px;padding:0px 5px 3px 5px'>
-                                Mandiri
+                                Bank 1
                             </td>
                           </tr>
                           <tr>
@@ -240,7 +225,14 @@
                                 123456789
                             </td>
                           </tr>
-                          @endif
+                          <tr>
+                            <td align='left' valign='top' style='color:#404041;font-size:12px;line-height:16px;padding:5px 0px 3px 0px;'>
+                                <strong>Branch:</strong>
+                            </td>
+                            <td width='120' align='right' valign='top' style='color:#404041;font-size:12px;line-height:16px;padding:5px 5px 3px 5px;'>
+                                Bank Area
+                            </td>
+                          </tr>                           
                         </tbody>
                       </table>
                     </td>
@@ -251,8 +243,8 @@
                         <tbody>
                           <tr>
                             <td style='color:#404041;font-size:12px;line-height:16px;padding:15px 5px 5px 10px'>
-                                For more information on your shipping please call us on <a href='tel:0318076110' value='+62318076110' target='_blank'>(031) 807 6110</a>, <a href='tel:03171625334' value='+623171625334' target='_blank'>((031) 716 25334</a>, or mail us at
-                                <a href='mailto:admn@jujurperkasa.tk'>admin@jujurperkasa.tk</a>
+                                For more information on your order please call us on<strong> <a href='tel:123 467 8961' value='+123 467 8961' target='_blank'>123 467 8961</a></strong>, or mail us at
+                                <a href='mailto:orders@company.com'>orders@company.com</a>
                             </td>
                           </tr>
                         </tbody>
@@ -261,6 +253,18 @@
                   </tr>
                   <tr>
                     <td>
+                      <table width='510' border='0' cellspacing='0' cellpadding='0'>
+                        <tbody>
+                          <tr>
+                              <td style='color:#404041;font-size:12px;line-height:16px;padding:5px 15px 10px 10px'>                                       
+                                <p>
+                                  Kind regards,<br>
+                                  <strong>The <a href='#' target='_blank'>company.com</a> team</strong>
+                                </p>
+                              </td>
+                          </tr>
+                        </tbody>
+                      </table>
                     </td>
                   </tr>
                 </tbody>
