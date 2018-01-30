@@ -136,6 +136,17 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::get('shipping/installment-form', 'Transaction\ShippingController@getInstallmentForm');
 	Route::patch('shipping/{id}','Transaction\ShippingController@update');
 
+	//Report - Termin
+	Route::get('termin','Report\TerminController@index');
+	Route::get('termin/get-termin-list','Report\TerminController@getTerminList');
+	Route::get('termin/details/{id}', 'Report\TerminController@getTerminDetails');
+	Route::get('termin/{id}/edit','Report\TerminController@edit');
+	Route::patch('termin/{id}','Report\TerminController@update');
+
+	//Report - General Report
+	Route::get('general-report','Report\GeneralReportController@index');
+	Route::post('general-report/report-data','Report\GeneralReportController@ReportData');
+
 	// Administrator - Users
 	Route::get('users','Administrator\UsersController@index');
   	Route::get('users/get-user','Administrator\UsersController@getUser');

@@ -43,4 +43,8 @@ class Shipping extends Model {
   public function shipping_vehicle() {
     return $this->hasOne('App\ShippingVehicle');
   }
+
+  public function termin() {
+    return $this->hasMany('App\Termin');
+  }
 }

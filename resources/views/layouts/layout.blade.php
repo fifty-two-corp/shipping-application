@@ -47,6 +47,7 @@
   <link href="{{ asset('public/plugins/jquery-jvectormap/jquery-jvectormap-1.2.2.css') }}" rel="stylesheet" />
   <link href="{{ asset('public/plugins/bootstrap-datepicker/css/datepicker.css') }}" rel="stylesheet" />
   <link href="{{ asset('public/plugins/bootstrap-datepicker/css/datepicker3.css') }}" rel="stylesheet" />
+  <link href="{{ asset('public/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css') }}" rel="stylesheet" />
   <link href="{{ asset('public/plugins/gritter/css/jquery.gritter.css') }}" rel="stylesheet" />
   <link href="{{ asset('public/plugins/sweetalert/sweetalert2.min.css') }}" rel="stylesheet" />
   <link href="{{ asset('public/plugins/jquery-filestyle/jquery-filestyle.css') }}" rel="stylesheet" />
@@ -199,15 +200,15 @@
 						</li>
 					@endpermission
 					@permission('report-view')
-						<li class="has-sub">
+						<li class="has-sub" id="report-menu">
 							<a href="javascript:;">
 								<b class="caret pull-right"></b>
 								<i class="fa fa-bar-chart-o"></i>
 								<span>Report</span>
 							</a>
 							<ul class="sub-menu">
-							<li><a href="javascript:;" onclick="under_maintenance()">Financial statements</a></li>
-								<li><a href="javascript:;" onclick="under_maintenance()">General Report</a></li>
+								<li id="termin_list-menu" ><a href="{{URL('termin')}}">Termin</a></li>
+								<li id="general_report-menu"><a href="{{URL('general-report')}}">General Report</a></li>
 								<li><a href="javascript:;" onclick="under_maintenance()">Income History</a></li>
 							</ul>
 						</li>
@@ -287,6 +288,8 @@
 		<script src="{{ asset('public/plugins/jquery.countdown/jquery.countdown.js') }}"></script>
 		<script src="{{ asset('public/plugins/jquery-filestyle/jquery-filestyle.js') }}"></script>
 		<script src="{{ asset('public/plugins/bootstrap3-editable/js/bootstrap-editable.min.js') }}"></script>
+		<script src="{{ asset('public/plugins/bootstrap-daterangepicker/moment.js') }}"></script>
+		<script src="{{ asset('public/plugins/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
 		<script src="{{ asset('public/js/ui-modal-notification.demo.min.js') }}"></script>
 		<script src="{{ asset('public/js/jstree.min.js') }}"></script>
 		<script src="{{ asset('public/js/coming-soon.demo.min.js') }}"></script>

@@ -37,12 +37,21 @@
                                     <tr>
                                       <td height='16' valign='top' style='color:#404041;font-size:13px;padding:15px 5px 0px 5px'>
                                         <strong>Load Date : </strong>
-                                        {{ $date }}
+                                        @if($data->load_date)
+                                        {{ date('d-m-Y', strtotime($data->load_date)) }}
+                                        @else
+                                        -
+                                        @endif
                                       </td>
                                     </tr>
                                     <tr>
                                       <td valign='top' style='color:#404041;font-size:13px;padding:5px 5px 0px 5px'>
                                         <strong>License Plate :</strong>
+                                        @if ($data->shipping_method == 'default')
+                                          {{ $data->shipping_vehicle->vehicle_plat_number }}
+                                        @elseif($data->shipping_method == 'vendor')
+                                          {{ $data->shipping_vendor->vendor_license_plate }}
+                                        @endif
                                       </td>
                                     </tr>
                                   </tbody>
@@ -60,6 +69,11 @@
                                     <tr>
                                       <td valign='top' style='color:#404041;font-size:13px;padding:5px 5px 0px 5px'>
                                         <strong>Driver : </strong>
+                                        @if ($data->shipping_method == 'default')
+                                          {{ $data->shipping_vehicle->vehicle_driver }}
+                                        @elseif($data->shipping_method == 'vendor')
+                                          {{ $data->shipping_vendor->vendor_driver }}
+                                        @endif
                                       </td>
                                     </tr>
                                 </tbody>
@@ -78,11 +92,14 @@
                                       @endif
                                     </td>
                                   </tr>
+                                  @if($data->shipping_method == 'vendor')
                                   <tr>
-                                      <td valign='top' style='color:#404041;font-size:13px;padding:5px 5px 0px 5px'>
-                                        <strong>Vendor : </strong>
-                                      </td>
-                                    </tr>
+                                    <td valign='top' style='color:#404041;font-size:13px;padding:5px 5px 0px 5px'>
+                                      <strong>Vendor : </strong>
+                                      {{ $data->shipping_vendor->vendor_name }}
+                                    </td>
+                                  </tr>
+                                  @endif
                                 </tbody>
                               </table>
                             </td>

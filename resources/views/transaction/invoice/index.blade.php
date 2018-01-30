@@ -208,10 +208,10 @@
                       </table>
                       <table width='0' border='0' align='left' cellpadding='0' cellspacing='0'>
                         <tbody>
-                          @if($data->termin != null)
+                          @if($data->time_period != null)
                           <tr style="background-color:#f2f2f2">
                             <td colspan="2" style="padding:10px 5px 3px 10px; font-size:13px;">
-                              <strong>Termin </strong>{{ $data->termin }} Days
+                              <strong>Time Period </strong>{{ $data->time_period }} Days
                             </td>
                           </tr>
                           <tr style="background-color:#f2f2f2;padding-bottom: 20px">

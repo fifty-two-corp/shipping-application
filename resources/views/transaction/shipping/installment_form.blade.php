@@ -15,10 +15,10 @@
 	<div class="col-md-6">
 	  <div class="col-xs-12 col-sm-12 col-md-12">
 	    <div class="form-group">
-	      <label class="col-md-4 control-label">Termin</label>
+	      <label class="col-md-4 control-label">Time Period</label>
 	      <div class="col-md-8">
 	      	<div class="input-group">
-	        	{!! Form::text('termin', null, ['class' => 'form-control', 'id' => 'termin']) !!}
+	        	{!! Form::text('time_period', null, ['class' => 'form-control', 'id' => 'time_period']) !!}
             <span class="input-group-addon">Days</span>
 	      	</div>
 	    	</div>

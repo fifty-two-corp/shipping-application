@@ -1,19 +1,19 @@
-<div class="tab-pane" id="shipping{{ $data->id }}">
+<div class="tab-pane" id="termin{{ $data->id }}">
 	<div class="panel-body">
 		<div class="invoice">
       <div class="invoice-company">
-        <a href="javascript:;" class="btn btn-sm btn-warning" onclick="show_modal_update_shipping()">Update</a>
-	      <a href="javascript:;" class="btn btn-sm btn-danger" onclick="delete_shipping()">Delete</a>
+        <a href="javascript:;" class="btn btn-sm btn-warning" onclick="show_modal_add_payment()">Add Payment</a>
+	      <!-- <a href="javascript:;" class="btn btn-sm btn-danger" onclick="delete_shipping()">Delete</a>
 	      <a href="{{ url('shipping/pdf/invoice/'.$data->id) }}" class="btn btn-sm btn-info"><i class="fa fa-download"></i> Invoice</a>
 	      <a href="{{ url('shipping/pdf/do/'.$data->id) }}" class="btn btn-sm btn-info"><i class="fa fa-download"></i> DO</a>
-	      <a href="javascript:;" class="btn btn-sm btn-info" onclick="getManifest()"><i class="fa fa-download"></i> Manifest</a>
-	      <span class="pull-right hidden-print">
+	      <a href="javascript:;" class="btn btn-sm btn-info" onclick="getManifest()"><i class="fa fa-download"></i> Manifest</a> -->
+	      <!-- <span class="pull-right hidden-print">
 	        @if ($data->status == 'Pending') <span class='label label-warning'>{{ $data->status }}</span>
           @elseif ($data->status == 'On Process') <span class='label label-primary'>{{ $data->status }}</span>
           @elseif ($data->status == 'Complete') <span class='label label-success'>{{ $data->status }}</span>
           @elseif ($data->status =='Cancel') <span class='label label-danger'>{{ $data->status }}</span>
           @endif
-        </span>
+        </span> -->
       </div>
       <div class="invoice-header">
         <div class="invoice-from">
@@ -39,26 +39,8 @@
           <div class="date m-t-5">{{ $date }}</div>
           <div class="invoice-detail">
               <br />
-              Shipping Method <span class="text text-primary" >{{ $data->shipping_method }}</span><br />
-              Shipping Type <span class="text text-primary">
-              	@if ($data->shipping_method == 'default')
-                  {{ $data->default_type }}
-                @elseif ($data->shipping_method == 'vendor')
-                  {{ $data->vendor_type }}
-                @endif
-              </span><br />
-              Shipping By <span class="text text-primary">
-              	@if ($data->shipping_method == 'default')
-              		@if ($data->shipping_vehicle != null)
-                  	{{ $data->shipping_vehicle->vehicle_driver }} / {{ $data->shipping_vehicle->vehicle_plat_number }}
-                  @else
-                  	-
-                  @endif
-                @elseif ($data->shipping_method == 'vendor')
-                  {{ $data->shipping_vendor->vendor_name }}
-                @endif
-              </span>
-
+              Time Period <span class="text text-primary" >{{ $data->time_period }} Days</span><br />
+              Due Date <span class="text text-primary">{{ $due_date }}</span><br />
           </div>
         </div>
       </div>
@@ -67,19 +49,19 @@
               <table class="table table-invoice">
                   <thead>
                       <tr>
-                          <th>ITEM</th>
-                          <th>QUANTITY</th>
-                          <th>DIMENSION</th>
+                          <th>#</th>
+                          <th>PAYMENT DATE</th>
+                          <th>PAYMENT</th>
                       </tr>
                   </thead>
                   <tbody>
-                  	@foreach($data->load_list as $item)
+                  	@foreach($data->termin as $key=>$termin)
                       <tr>
                           <td>
-                            {{ $item->item }}
+                            {{ $i++ }}
                           </td>
-                          <td width="10%">{{ $item->quantity }}</td>
-                          <td width="15%">{{ $item->dimension }}</td>
+                          <td>{{ date('M d, Y', strtotime($termin->payment_date)) }}</td>
+                          <td>Rp. {{ number_format($termin->payment)}}</td>
                       </tr>
                      @endforeach
                   </tbody>
@@ -92,31 +74,28 @@
                           <small>DELIVERY COST</small>
                           Rp.
                           @if ($data->shipping_method == 'default')
-                            {{ number_format($data->default_cost) }}
+                            {{ number_format($data->default_cost + $data->tax_cost) }}
                           @elseif ($data->shipping_method == 'vendor')
-                            {{ number_format($data->vendor_cost) }}
+                            {{ number_format($data->vendor_cost + $data->tax_cost) }}
                           @endif
                       </div>
                       <div class="sub-price">
-                          <i class="fa fa-plus"></i>
+                          <i class="fa fa-minus"></i>
                       </div>
                       <div class="sub-price">
-                          <small>TAX ({{ $data->tax_value }}%)</small>
-                          Rp. {{ number_format($data->tax_cost) }}
+                          <small>TOTAL PAYMENT</small>
+                          Rp. {{ number_format($data->termin->sum('payment')) }}
                       </div>
                   </div>
               </div>
               <div class="invoice-price-right">
-                  <small>GRAND TOTAL</small> Rp. {{ number_format($data->cost) }}
+                @if ($data->shipping_method == 'default')
+                  <small>REMAINING PAYMENT</small> Rp. {{ number_format($data->default_cost + $data->tax_cost - $data->termin->sum('payment')) }}
+                @elseif ($data->shipping_method == 'vendor')
+                  <small>REMAINING PAYMENT</small> Rp. {{ number_format($data->vendor_cost + $data->tax_cost - $data->termin->sum('payment')) }}
+                @endif
               </div>
           </div>
-      </div>
-      <div>
-          * Operational Cost : Rp. {{ number_format($data->operational_cost) }}<br />
-          @if($data->termin != null)
-          	* Termin : {{ $data->time_period }} Days<br />
-          	* Due Date : {{ $due_date }}<br />
-          @endif
       </div>
       <div class="invoice-footer text-muted">
           <p class="text-center">
@@ -129,35 +108,35 @@
     </div>
 	</div>
 </div>
-<div class="modal fade" id="modal_shipping" tabindex="-1" role="dialog" aria-labelledby="modal_shipping" aria-hidden="true"></div>
+<div class="modal fade" id="modal_add_payment" tabindex="-1" role="dialog" aria-labelledby="modal_shipping" aria-hidden="true"></div>
 <script>
 
-	function show_modal_update_shipping() {
+	function show_modal_add_payment() {
 	  var id = '{{ $data->id }}';
 	  $.ajax({
 	    type:"GET",
-	    url: id+"/edit",
+	    url: "termin/"+id+"/edit",
 	    success: function(res) {
-	      $('#modal_shipping').modal('show');
-	      $('#modal_shipping').html('');
-	      $('#modal_shipping').append(res);
+	      $('#modal_add_payment').modal('show');
+	      $('#modal_add_payment').html('');
+	      $('#modal_add_payment').append(res);
 	    }
 	  });
 	}
 
-	function save_update_shipping_data(){
+	function save_add_payment(){
 	  var id = '{{ $data->id }}';
 	  var transaction_number = '{{ $data->transaction_number }}';
-  	var element_shipping = document.getElementById("#shipping"+id);
+  	var element_shipping = document.getElementById("#termin"+id);
 	  $.ajaxSetup({
 	    header:$('meta[name="_token"]').attr('content')
 	  })
 	  $.ajax({
 	    type:"PATCH",
-	    url:'{{ url("shipping") }}'+'/'+ id,
-	    data:$('#form-update-shipping').serialize(),
+	    url:'{{ url("termin") }}'+'/'+ id,
+	    data:$('#form-add-payment').serialize(),
 	    success: function(data){
-	      $('#modal_shipping').modal('hide');
+	      $('#modal_add_payment').modal('hide');
 	      //swal('Updated','','success');
 	      $.gritter.add({
 	        title:"Updated",
@@ -168,9 +147,9 @@
 	      });
 	      $.ajax({
 			    type:"GET",
-			    url: "details/" + id,
+			    url: "termin/details/" + id,
 			    success: function(res) {
-		        $('.tab-content [id=shipping'+id+']').html(res);
+		        $('.tab-content [id=termin'+id+']').html(res);
 			    }
 			  });
 			  reload_data();
@@ -196,14 +175,6 @@
 	      });
 	    }
 	  });
-	}
-
-	function getDO() {
-	  swal('Sorry','Page under maintenance','warning');
-	}
-
-	function getManifest() {
-	  swal('Sorry','Page under maintenance','warning');
 	}
 
 	function delete_shipping() {

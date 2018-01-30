@@ -16,6 +16,7 @@ use App\ShippingVendor;
 use App\ShippingCustomer;
 use App\ShippingDestination;
 use App\ShippingVehicle;
+use App\Termin;
 use Indonesia;
 use Auth;
 use DB;
@@ -133,8 +134,8 @@ class ShippingController extends Controller {
         $shipping->vendor_type      = $shipping_vendor_cost_data->type;
       }
       if ($request->payment === 'installment') {
-        $shipping->down_payment = str_replace(".", "",$request->down_payment);
-        $shipping->termin       =  $request->termin;
+        $shipping->down_payment      = str_replace(".", "",$request->down_payment);
+        $shipping->time_period       =  $request->time_period;
       }
       $shipping->transaction_number    = 'JP-'.date('dmyHis');
       $shipping->tax_value             = str_replace('%', '', $shipping_cost['tax']);
@@ -186,6 +187,16 @@ class ShippingController extends Controller {
         $shipping_vendor->save();
       }
 
+      if ($request->payment === 'installment') {
+        $date_now             = Carbon::now();
+        $termin               = new Termin;
+        $termin->shipping_id  = $shipping->id;
+        $termin->payment      = $request->down_payment;
+        $termin->payment_date = $date_now->toDateTimeString();
+        $termin->created_by   = Auth::user()->name;
+        $termin->save();
+      }
+
       foreach ($request->load_item as $key => $value) {
         $loadlist              = new LoadList;
         $loadlist->shipping_id = $shipping->id;
@@ -211,7 +222,7 @@ class ShippingController extends Controller {
       $headers = ['Content-Type'=> 'application/pdf'];
       $data = Shipping::with('load_list','shipping_vendor', 'shipping_customer', 'shipping_destination', 'shipping_vehicle')->find($id);
       $date = Carbon::parse($data->created_at)->toFormattedDateString();
-      $due_date = date('Y-m-d', strtotime('+'.$data->termin.'days', strtotime($data->created_at)));
+      $due_date = date('Y-m-d', strtotime('+'.$data->time_period.'days', strtotime($data->created_at)));
       $due_date = Carbon::parse($due_date)->toFormattedDateString();
       $pdf = PDF::loadView('transaction/invoice/index', compact('data', 'date', 'due_date'))
       ->setPaper('A4');
@@ -223,7 +234,7 @@ class ShippingController extends Controller {
       $headers = ['Content-Type'=> 'application/pdf'];
       $data = Shipping::with('load_list','shipping_vendor', 'shipping_customer', 'shipping_destination', 'shipping_vehicle')->find($id);
       $date = Carbon::parse($data->created_at)->toFormattedDateString();
-      $due_date = date('Y-m-d', strtotime('+'.$data->termin.'days', strtotime($data->created_at)));
+      $due_date = date('Y-m-d', strtotime('+'.$data->time_period.'days', strtotime($data->created_at)));
       $due_date = Carbon::parse($due_date)->toFormattedDateString();
       $pdf = PDF::loadView('transaction/invoice/index', compact('data', 'date', 'due_date'))
       ->setPaper('A4');
@@ -278,13 +289,13 @@ class ShippingController extends Controller {
     public function getShippingDetails($id) {
       $data = Shipping::with('load_list','shipping_vendor', 'shipping_customer', 'shipping_destination', 'shipping_vehicle')->find($id);
       $date = Carbon::parse($data->created_at)->toFormattedDateString();
-      $due_date = date('Y-m-d', strtotime('+'.$data->termin.'days', strtotime($data->created_at)));
+      $due_date = date('Y-m-d', strtotime('+'.$data->time_period.'days', strtotime($data->created_at)));
       $due_date = Carbon::parse($due_date)->toFormattedDateString();
       return view('transaction/shipping/shipping_details', compact('data', 'date', 'due_date'));
     }
 
     public function edit($id) {
-      $shipping             = Shipping::with('shipping_vehicle')->find($id);
+      $shipping             = Shipping::with('shipping_vehicle', 'shipping_vendor')->find($id);
       $status               = $shipping->status;
       $shipping->shipping_vehicle != null ? $vehicle_plat_number  = $shipping->shipping_vehicle->vehicle_plat_number : $vehicle_plat_number = '';
       $vehicle              = Vehicle::pluck('plat_number', 'plat_number')->toArray();
@@ -297,11 +308,17 @@ class ShippingController extends Controller {
         'status'   => 'required'
       ]);
 
+      if(!empty($request->input('load_date'))) {
+        $load_date                = Carbon::parse($request->input('load_date'));
+      } else {
+        $load_date                = NULL;
+      }
       $operational_cost           = str_replace(".", "", $request->input('operational_cost'));
       $vehicle                    = Vehicle::with('employees')->where('plat_number', $request->vehicle)->first();
       $shipping                   = Shipping::find($id);
       $shipping->status           = $request->input('status');
       $shipping->operational_cost = $operational_cost;
+      $shipping->load_date        = $load_date;
       $shipping->updated_by       = Auth::user()->name;
       $shipping->save();
 
@@ -320,7 +337,18 @@ class ShippingController extends Controller {
         $shipping_vehicle->vehicle_status           = $vehicle->status;
         $shipping_vehicle->created_by               = Auth::user()->name;
         $shipping_vehicle->save();
+      } else {
+        $shipping_vehicle                           = ShippingVehicle::where('shipping_id', '=', $shipping->id);
+        $shipping_vehicle->delete();
       }
+
+      if ($shipping->shipping_method == 'vendor') {
+        $vendor = ShippingVendor::where('shipping_id', '=', $shipping->id)->first();
+        $vendor->vendor_driver        = $request->input('vendor_driver');
+        $vendor->vendor_license_plate = $request->input('license_plate');
+        $vendor->save();
+      }
+
       return response()->json(['responseText' => 'Updated'], 200);
     }
 
