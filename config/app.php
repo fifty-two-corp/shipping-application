@@ -194,6 +194,8 @@ return [
         Barryvdh\Snappy\ServiceProvider::class,
         Fx3costa\LaravelChartJs\Providers\ChartjsServiceProvider::class,
         //niklasravnsborg\LaravelPdf\PdfServiceProvider::class
+        Way\Generators\GeneratorsServiceProvider::class,
+        Xethron\MigrationsGenerator\MigrationsGeneratorServiceProvider::class,
 
     ],
 
