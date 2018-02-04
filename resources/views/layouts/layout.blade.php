@@ -207,9 +207,9 @@
 								<span>Report</span>
 							</a>
 							<ul class="sub-menu">
-								<li id="termin_list-menu" ><a href="{{URL('termin')}}">Termin</a></li>
-								<li id="general_report-menu"><a href="{{URL('general-report')}}">General Report</a></li>
-								<li><a href="javascript:;" onclick="under_maintenance()">Income History</a></li>
+								<li id="termin_list-menu" ><a href="{{URL('termin')}}">Installment Reports</a></li>
+								<li id="general_report-menu"><a href="{{URL('general-report')}}">Income Report</a></li>
+								<li><a href="javascript:;" onclick="under_maintenance()">Expense Report</a></li>
 							</ul>
 						</li>
 					@endpermission
