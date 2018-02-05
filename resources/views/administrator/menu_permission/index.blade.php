@@ -37,7 +37,7 @@
         </div>
         <div class="col-md-6" id="child_menu_view"></div>
       </div>
-    </div><
+    </div>
   </div>
   <div class="row">
     <div class="panel panel-inverse" data-sortable-id="form-stuff-5">
