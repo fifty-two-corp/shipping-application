@@ -32,7 +32,7 @@
                                     <td><a href="#" name="name" id="name" data-type="text" data-pk="1" data-title="Full Name" data-url="{{route('update_field')}}">{{ Auth::user()->name }}</a></td>
                                 </tr>
                                 <tr class="highlight">
-                                    <td class="field">Name</td>
+                                    <td class="field">Username</td>
                                     <td><a href="#" name="username" id="username" data-type="text" data-pk="1" data-title="Username" data-url="{{route('update_field')}}">{{ Auth::user()->username }}</a></td>
                                 </tr>
                                 <tr class="highlight">
