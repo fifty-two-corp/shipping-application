@@ -64,7 +64,7 @@ return [
     |
     */
 
-    'timezone' => 'Asia/Jakarta',
+    'timezone' => 'Asia/Makassar',
 
     /*
     |--------------------------------------------------------------------------
@@ -187,15 +187,14 @@ return [
         Yajra\Datatables\ButtonsServiceProvider::class,
         Yajra\Datatables\HtmlServiceProvider::class,
         Spatie\Fractal\FractalServiceProvider::class,
-        //Barryvdh\DomPDF\ServiceProvider::class,
         Laravolt\Indonesia\ServiceProvider::class,
         Spatie\Backup\BackupServiceProvider::class,
         Felixkiss\UniqueWithValidator\ServiceProvider::class,
         Barryvdh\Snappy\ServiceProvider::class,
         Fx3costa\LaravelChartJs\Providers\ChartjsServiceProvider::class,
-        //niklasravnsborg\LaravelPdf\PdfServiceProvider::class
         Way\Generators\GeneratorsServiceProvider::class,
         Xethron\MigrationsGenerator\MigrationsGeneratorServiceProvider::class,
+        Spatie\Backup\BackupServiceProvider::class,
 
     ],
 
@@ -248,9 +247,7 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
         'Fractal' => Spatie\Fractal\FractalFacade::class,
-        //'PDF' => Barryvdh\DomPDF\Facade::class,
         'PDF' => Barryvdh\Snappy\Facades\SnappyPdf::class,
-        //'PDF' => niklasravnsborg\LaravelPdf\Facades\Pdf::class,
         'Indonesia' => Laravolt\Indonesia\Facade::class,
         'SnappyImage' => Barryvdh\Snappy\Facades\SnappyImage::class,
     ],

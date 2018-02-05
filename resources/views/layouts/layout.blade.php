@@ -234,7 +234,7 @@
 									<li id="menu-permission-management"><a href="{{URL('menu_permission')}}">Menu Permission</a></li>
 								@endpermission
 								@permission('backup-list')
-									<li id="backup-management-menu"><a href="javascript:;" onclick="under_maintenance()">Backup Database</a></li>
+									<li id="backup-management-menu"><a href="{{URL('backup')}}">Backup</a></li>
 								@endpermission
 							</ul>
 						</li>
