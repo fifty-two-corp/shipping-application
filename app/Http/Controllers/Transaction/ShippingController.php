@@ -240,6 +240,7 @@ class ShippingController extends Controller {
       ->setPaper('A4');
       //return $pdf->download('invoice.pdf', $headers);
       return view('transaction/do/index', compact('data', 'date', 'due_date'));
+      //return Response::json($data);
     }
 
     public function getInstallmentForm() {

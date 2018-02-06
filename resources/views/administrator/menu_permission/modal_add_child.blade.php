@@ -21,7 +21,7 @@
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                   <div class="form-group">
-                    <label class="col-md-3 control-label">Display Name</label>
+                    <label class="col-md-3 control-label">Link</label>
                     <div class="col-md-9">
                       {!! Form::text('link', null, ['placeholder' => 'Link','class' => 'form-control']) !!}
                     </div>

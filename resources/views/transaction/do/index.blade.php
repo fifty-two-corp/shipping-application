@@ -47,7 +47,7 @@
                                     <tr>
                                       <td valign='top' style='color:#404041;font-size:13px;padding:5px 5px 0px 5px'>
                                         <strong>License Plate :</strong>
-                                        @if ($data->shipping_method == 'default')
+                                        @if ($data->shipping_method == 'default' && !empty($data->shipping_vehicle))
                                           {{ $data->shipping_vehicle->vehicle_plat_number }}
                                         @elseif($data->shipping_method == 'vendor')
                                           {{ $data->shipping_vendor->vendor_license_plate }}
@@ -69,7 +69,7 @@
                                     <tr>
                                       <td valign='top' style='color:#404041;font-size:13px;padding:5px 5px 0px 5px'>
                                         <strong>Driver : </strong>
-                                        @if ($data->shipping_method == 'default')
+                                        @if ($data->shipping_method == 'default' && !empty($data->shipping_vehicle))
                                           {{ $data->shipping_vehicle->vehicle_driver }}
                                         @elseif($data->shipping_method == 'vendor')
                                           {{ $data->shipping_vendor->vendor_driver }}

@@ -59,7 +59,7 @@
       })
       $.ajax({
         type:"POST",
-        url:'general-report/post-report-data',
+        url:'general-report/report-data',
         data: {date_start: date_start, date_end: date_end},
         //dataType: 'json',
         success: function(data){
