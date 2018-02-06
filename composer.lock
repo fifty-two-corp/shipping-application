@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "19cc90249a0c67a435dfb22e1ad73e9d",
+    "content-hash": "50a1e9a819362c2c1cc1daf77355d938",
     "packages": [
         {
             "name": "barryvdh/laravel-snappy",
@@ -66,6 +66,47 @@
                 "wkhtmltopdf"
             ],
             "time": "2017-08-14T06:48:50+00:00"
+        },
+        {
+            "name": "brotzka/laravel-dotenv-editor",
+            "version": "v2.0.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Brotzka/laravel-dotenv-editor.git",
+                "reference": "f89abc5e2ed164e436dd5c821752ae7f623534f1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Brotzka/laravel-dotenv-editor/zipball/f89abc5e2ed164e436dd5c821752ae7f623534f1",
+                "reference": "f89abc5e2ed164e436dd5c821752ae7f623534f1",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Brotzka\\DotenvEditor\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabian Hagen",
+                    "email": "fabianhagen87@gmail.com"
+                }
+            ],
+            "description": "A package for editing the .env file in your Laravel root.",
+            "keywords": [
+                "dotenv",
+                "dotenv-editor",
+                "laravel"
+            ],
+            "time": "2018-01-04T11:57:53+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",

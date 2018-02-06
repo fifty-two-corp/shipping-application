@@ -202,11 +202,20 @@ Route::group(['middleware' => ['auth']], function() {
 	// Route::patch('itemCRUD2/{id}',['as'=>'itemCRUD2.update','uses'=>'ItemCRUD2Controller@update','middleware' => ['permission:item-edit']]);
 	// Route::delete('itemCRUD2/{id}',['as'=>'itemCRUD2.destroy','uses'=>'ItemCRUD2Controller@destroy','middleware' => ['permission:item-delete']]);
 
+	// Administrator - Environment
+	Route::get('environment','Settings\EnvironmentController@index');
+	Route::get('environment/get-env','Settings\EnvironmentController@getEnv');
+	Route::get('environment/create','Settings\EnvironmentController@create');
+	Route::post('environment/store','Settings\EnvironmentController@store');
+	Route::get('environment/{name}/edit/{value}','Settings\EnvironmentController@edit');
+	Route::patch('environment/{name}','Settings\EnvironmentController@update');
+	Route::get('environment/delete-env/{name}','Settings\EnvironmentController@destroy');
+
 	// Administrator - Backup
-	Route::get('backup','Administrator\BackupController@index');
-	Route::get('backup/get-backup-data','Administrator\BackupController@getBackupData');
-	Route::get('backup/backup','Administrator\BackupController@backup');
-	Route::get('backup/download/{name}','Administrator\BackupController@download');
-	Route::get('backup/delete/{name}','Administrator\BackupController@destroy');
+	Route::get('backup','Settings\BackupController@index');
+	Route::get('backup/get-backup-data','Settings\BackupController@getBackupData');
+	Route::get('backup/backup','Settings\BackupController@backup');
+	Route::get('backup/download/{name}','Settings\BackupController@download');
+	Route::get('backup/delete/{name}','Settings\BackupController@destroy');
 
 });

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Administrator;
+namespace App\Http\Controllers\Settings;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -14,7 +14,7 @@ use Artisan;
 class BackupController extends Controller {
   
 	public function index() {
-		return view('administrator/backup/index');
+		return view('settings/backup/index');
 	}
 
  	public function getBackupData(Request $request) {
@@ -44,7 +44,6 @@ class BackupController extends Controller {
 
   public function destroy($name) {
     $delete = Storage::delete('backup/'.$name);
-    return Response::json($delete);
-    
+    return response()->json(['responseText' => 'Deleted'], 200);
   }
 }

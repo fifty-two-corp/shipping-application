@@ -143,7 +143,7 @@
 						<li class="has-sub" id="master-menu">
 							<a href="javascript:;">
 								<b class="caret pull-right"></b>
-								<i class="fa fa-gear"></i>
+								<i class="fa fa-database"></i>
 								<span>Master</span>
 							</a>
 							<ul class="sub-menu">
@@ -221,9 +221,6 @@
 								<span>Admnistrator</span>
 							</a>
 							<ul class="sub-menu">
-								@permission('setting-list')
-									<li id="settings-menu"><a href="javascript:;" onclick="under_maintenance()">Settings</a></li>
-								@endpermission
 								@permission('user-list')
 									<li id="user-management-menu"><a href="{{URL('users')}}">User Management</a></li>
 								@endpermission
@@ -233,7 +230,24 @@
 								@permission('permission-list')
 									<li id="menu-permission-management"><a href="{{URL('menu_permission')}}">Menu Permission</a></li>
 								@endpermission
-								@permission('backup-list')
+								@permission('log-view')
+									<li id="log-menu"><a href="javascript:;" onclick="under_maintenance()">Log</a></li>
+								@endpermission
+							</ul>
+						</li>
+					@endpermission
+					@permission('settings-view')
+						<li class="has-sub" id="settings-menu">
+							<a href="javascript:;">
+								<b class="caret pull-right"></b>
+								<i class="fa fa-gears"></i>
+								<span>Settings</span>
+							</a>
+							<ul class="sub-menu">
+								@permission('environment-view')
+									<li id="environment-menu"><a href="{{URL('environment')}}">Environment</a></li>
+								@endpermission
+								@permission('backup-view')
 									<li id="backup-management-menu"><a href="{{URL('backup')}}">Backup</a></li>
 								@endpermission
 							</ul>

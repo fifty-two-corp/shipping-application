@@ -3,7 +3,7 @@
 @section('content')
 <div id="content" class="content">        
     <!-- begin page-header -->
-    <h1 class="page-header">Administrator <small></small></h1>
+    <h1 class="page-header">Settings <small></small></h1>
     <!-- end page-header -->
 
    <!-- begin row -->
@@ -48,7 +48,7 @@
 
 <!-- datatables -->
 <script type="text/javascript">
-  $('#administrator-menu').addClass('active');
+  $('#settings-menu').addClass('active');
   $('#backup-management-menu').addClass('active');
   var listener = new window.keypress.Listener();
   $(document).ready(function() {
