@@ -188,7 +188,6 @@ return [
         Yajra\Datatables\HtmlServiceProvider::class,
         Spatie\Fractal\FractalServiceProvider::class,
         Laravolt\Indonesia\ServiceProvider::class,
-        Spatie\Backup\BackupServiceProvider::class,
         Felixkiss\UniqueWithValidator\ServiceProvider::class,
         Barryvdh\Snappy\ServiceProvider::class,
         Fx3costa\LaravelChartJs\Providers\ChartjsServiceProvider::class,
@@ -252,6 +251,7 @@ return [
         'Indonesia' => Laravolt\Indonesia\Facade::class,
         'SnappyImage' => Barryvdh\Snappy\Facades\SnappyImage::class,
         'DotenvEditor' => Brotzka\DotenvEditor\DotenvEditorFacade::class,
+        'Datatables' => Yajra\DataTables\Facades\DataTables::class,
     ],
 
 ];
