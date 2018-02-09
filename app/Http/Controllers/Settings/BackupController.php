@@ -35,7 +35,7 @@ class BackupController extends Controller {
  	}
 
  	public function backup(){
-    Artisan::call('backup:run');
+    Artisan::call('backup:run', ['--only-db' => 'true', '--disable-notifications' => 'true']);
   }
 
   public function download($name) {
