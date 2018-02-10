@@ -4,13 +4,25 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Vendor extends Model {
   use SoftDeletes;
+  use LogsActivity;
 
   protected $table = 'vendor';
   protected $dates = ['deleted_at'];
   protected $guarded = [];
+  protected static $logAttributes = [
+    'id',
+    'vendor_number',
+    'name',
+    'address',
+    'province_id',
+    'city_id',
+    'districts_id',
+    'phone'
+  ];
 
   public function created_user() {
     return $this->belongsTo('App\User', 'created_by');

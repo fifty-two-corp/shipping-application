@@ -5,9 +5,11 @@ namespace App;
 //use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class User extends Authenticatable {
   use EntrustUserTrait;
+  use LogsActivity;
 
   /**
    * The attributes that are mass assignable.
@@ -16,6 +18,14 @@ class User extends Authenticatable {
    */
   protected $fillable = ['name', 'email', 'password', 'username'];
   protected $dates = ['deleted_at'];
+  protected static $logAttributes = [
+    'id',
+    'name',
+    'username',
+    'email',
+    'password',
+    'photo'
+  ];
 
   /**
    * The attributes that should be hidden for arrays.

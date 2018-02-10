@@ -4,13 +4,27 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Employees extends Model {
   use SoftDeletes;
+  use LogsActivity;
 
   protected $table = 'employees';
   protected $dates = ['deleted_at'];
   protected $guarded = [];
+  protected static $logAttributes = [
+    'id',
+    'employees_number',
+    'name',
+    'address',
+    'province_id',
+    'city_id',
+    'districts_id',
+    'phone',
+    'identity_method_id',
+    'identity_number'
+  ];
 
   public function created_user() {
     return $this->belongsTo('App\User', 'created_by');
@@ -36,8 +50,8 @@ class Employees extends Model {
     return $this->belongsTo('App\Districts');
   }
 
-  public function id_method() {
-    return $this->belongsTo('App\IdMethod','identity_method_id');
+  public function identity_method() {
+    return $this->belongsTo('App\IdMethod');
   }
 
   public function vehicle() {

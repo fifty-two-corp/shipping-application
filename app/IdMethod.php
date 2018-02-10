@@ -24,7 +24,7 @@ class IdMethod extends Model {
     return $this->belongsTo('App\User', 'deleted_by');
   }
 
-  public function employess() {
-    return $this->hasMany('App\Employess');
+  public function employees() {
+    return $this->hasMany('App\Employees');
   }
 }

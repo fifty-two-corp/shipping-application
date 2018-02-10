@@ -3,11 +3,26 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class VendorCost extends Model {
+  use LogsActivity;
 
   protected $table = 'vendor_cost';
   protected $guarded = [];
+  protected static $logAttributes = [
+    'id',
+    'vendor_id',
+    'customer_id',
+    'origin_provinces_id',
+    'origin_city_id',
+    'destination_provinces_id',
+    'destination_city_id',
+    'type',
+    'cost',
+    'created_at',
+    'updated_at'
+  ];
 
   public function created_user() {
     return $this->belongsTo('App\User', 'created_by');

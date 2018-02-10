@@ -3,11 +3,21 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Termin extends Model {
+  use LogsActivity;
 
   protected $table = 'termin_payment';
   protected $guarded = [];
+  protected static $logAttributes = [
+    'id',
+    'shipping_id',
+    'payment',
+    'payment_date',
+    'created_at',
+    'updated_at'
+  ];
 
   public function created_user() {
     return $this->belongsTo('App\User', 'created_by');
