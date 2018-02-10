@@ -23,7 +23,7 @@
   $(document).ready(function() {
     var id = {{ $id }}
     childTable = $('#child_menu_table').DataTable({
-      processing: true,
+      processing: false,
       serverSide: true,
       ajax: {
         url:'menu_permission/get-data-child/' + id, 

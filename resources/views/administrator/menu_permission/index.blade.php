@@ -65,7 +65,7 @@
     get_child_menu_default();
     get_permission_default();
     parentTable = $('#parent_menu_table').DataTable({
-      processing: true,
+      processing: false,
       serverSide: true,
       searchHighlight: true,
       ajax: {

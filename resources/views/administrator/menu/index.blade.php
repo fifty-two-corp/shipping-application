@@ -57,7 +57,7 @@
   $(document).ready(function() {
   get_city_default();
   parentTable = $('#province_table').DataTable({
-    processing: true,
+    processing: false,
     serverSide: true,
     searchHighlight: true,
     ajax: {

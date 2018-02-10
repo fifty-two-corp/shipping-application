@@ -55,7 +55,7 @@
   var listener = new window.keypress.Listener();
   $(document).ready(function() {
   vendorTable = $('#vendor_table').DataTable({
-    processing: true,
+    processing: false,
     serverSide: true,
     ajax: {
       url:'{{ url("vendors/get-vendor") }}', 

@@ -3,7 +3,9 @@
 		<div class="invoice">
       <div class="invoice-company">
         <a href="javascript:;" class="btn btn-sm btn-warning" onclick="show_modal_update_shipping()">Update</a>
-	      <a href="javascript:;" class="btn btn-sm btn-danger" onclick="delete_shipping()">Delete</a>
+        @permission('delete-shipping')
+	       <a href="javascript:;" class="btn btn-sm btn-danger" onclick="delete_shipping()">Delete</a>
+        @endpermission
 	      <a href="{{ url('shipping/pdf/invoice/'.$data->id) }}" class="btn btn-sm btn-info"><i class="fa fa-download"></i> Invoice</a>
 	      <a href="{{ url('shipping/pdf/do/'.$data->id) }}" class="btn btn-sm btn-info"><i class="fa fa-download"></i> DO</a>
 	      <a href="javascript:;" class="btn btn-sm btn-info" onclick="getManifest()"><i class="fa fa-download"></i> Manifest</a>

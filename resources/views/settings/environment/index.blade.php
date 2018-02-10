@@ -51,7 +51,7 @@
   var listener = new window.keypress.Listener();
   $(document).ready(function() {
   envTable = $('#env_table').DataTable({
-    processing: true,
+    processing: false,
     serverSide: true,
     ajax: {
       url:'{{ url("environment/get-env") }}', 

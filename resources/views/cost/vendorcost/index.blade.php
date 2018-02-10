@@ -57,7 +57,7 @@
 
   $(document).ready(function() {
     vendorcostTable = $('#vendor_cost_table').DataTable({
-      processing: true,
+      processing: false,
       serverSide: true,
       ajax: {
         url:'{{ url("vendor-cost/get-vendor-cost") }}', 

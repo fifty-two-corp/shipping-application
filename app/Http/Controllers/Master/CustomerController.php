@@ -14,7 +14,6 @@ use Datatables;
 use Indonesia;
 
 class CustomerController extends Controller {
-  
 	public function index() {
 		return view('master/customer/index');
 	}
@@ -101,7 +100,7 @@ class CustomerController extends Controller {
     $customer   = Customer::find($id);
     
     $this->validate($request, [
-      'customer_number'   => 'required|unique:customer,customer_number,NULL,{$customer->id},deleted_at,NULL',
+      'customer_number'   => 'required|unique:customer,customer_number,'.$customer->id.',id,deleted_at,NULL',
       'name'              => 'required',
       'address'           => 'required',
       'province'          => 'required',

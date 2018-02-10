@@ -22,7 +22,7 @@
   $(document).ready(function() {
     var id = {{ $id }}
     permissionTable = $('#permission_table').DataTable({
-      processing: true,
+      processing: false,
       serverSide: true,
       ajax: {
         url:'menu_permission/get-data-permission/' + id, 

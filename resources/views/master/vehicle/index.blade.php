@@ -1,14 +1,9 @@
 @extends('layouts.layout')
 @section('content')
 <div id="content" class="content">        
-    <!-- begin page-header -->
-    <h1 class="page-header">Master <small></small></h1>
-    <!-- end page-header -->
-
-   <!-- begin row -->
-    <div class="row">
-            <!-- begin panel -->
-      <div class="panel panel-inverse" data-sortable-id="form-stuff-5">
+    <h1 class="page-header">Master <small></small></h1><!-- page-header -->
+    <div class="row"><!-- begin row -->
+      <div class="panel panel-inverse" data-sortable-id="form-stuff-5"><!-- begin panel -->
           <div class="panel-heading">
               <div class="panel-heading-btn">
                   <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
@@ -57,7 +52,7 @@
   var listener = new window.keypress.Listener();
   $(document).ready(function() {
   vehicleTable = $('#vehicle_table').DataTable({
-    processing: true,
+    processing: false,
     serverSide: true,
     ajax: {
       url:'{{ url("vehicle/get-vehicle") }}', 
@@ -130,7 +125,6 @@ function show_modal_edit_vehicle() {
     type:"GET",
     url: "vehicle/"+id+"/edit",
     success: function(res) {
-      //console.log(res);
       $('#modal_vehicle').html(res);
       $('#modal_vehicle').modal('show');
     }
@@ -160,7 +154,6 @@ function save_vehicle_data(){
     data:$('#form-vehicle-add').serialize(),
     dataType: 'json',
     success: function(data){
-      //console.log(data);
       $('#modal_vehicle').modal('hide');
       swal('Added','','success');
       reload_data();
@@ -189,9 +182,7 @@ function save_vehicle_edit_data(){
     type:"PATCH",
     url:'vehicle/'+id,
     data:$('#form-edit-vehicle').serialize(),
-    
     success: function(data){
-      //console.log(data);
       $('#modal_vehicle').modal('hide');
       swal('Updated','','success');
       reload_data();

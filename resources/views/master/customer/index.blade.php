@@ -49,7 +49,7 @@
   var listener = new window.keypress.Listener();
   $(document).ready(function() {
   customerTable = $('#customer_table').DataTable({
-    processing: true,
+    processing: false,
     serverSide: true,
     ajax: {
       url:'{{ url("customer/get-customer") }}', 

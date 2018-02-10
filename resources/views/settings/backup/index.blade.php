@@ -53,7 +53,7 @@
   var listener = new window.keypress.Listener();
   $(document).ready(function() {
   backupTable = $('#backup_table').DataTable({
-    processing: true,
+    processing: false,
     serverSide: true,
     ajax: {
       url:'{{ url("backup/get-backup-data") }}', 

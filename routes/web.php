@@ -168,14 +168,16 @@ Route::group(['middleware' => ['auth']], function() {
 
 	// Administrator - Menu Permission
 	Route::get('menu_permission','Administrator\MenuPermissionController@index');
-	//Parent Menu
+
+	//Administrator - Parent Menu
 	Route::get('menu_permission/get-parent-menu','Administrator\MenuPermissionController@getParentMenu');
 	Route::get('menu_permission/create-parent-menu','Administrator\MenuPermissionController@createParentMenu');
 	Route::post('menu_permission/store-parent-menu','Administrator\MenuPermissionController@storeParentMenu');
 	Route::get('menu_permission/{id}/edit-parent-menu','Administrator\MenuPermissionController@editParentMenu');
 	Route::patch('menu_permission/save-edit-parent-menu/{id}','Administrator\MenuPermissionController@updateParentMenu');
 	Route::delete('menu_permission/delete-parent-menu/{id}','Administrator\MenuPermissionController@destroyParentMenu');
-	//Child Menu
+	
+	// Administrator - Child Menu
 	Route::get('menu_permission/get-child-menu-default','Administrator\MenuPermissionController@getChildMenuDefault');
 	Route::get('menu_permission/get-child-menu-data/{id}','Administrator\MenuPermissionController@getChildMenuData');
 	Route::get('menu_permission/get-data-child/{id}','Administrator\MenuPermissionController@getDataChild');
@@ -184,7 +186,8 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::get('menu_permission/{id}/edit-child-menu','Administrator\MenuPermissionController@editChildMenu');
 	Route::patch('menu_permission/save-edit-child-menu/{id}','Administrator\MenuPermissionController@updateChildMenu');
 	Route::delete('menu_permission/delete-child-menu/{id}','Administrator\MenuPermissionController@destroyChildMenu');
-	//Permission
+	
+	// Administrator - Permission
 	Route::get('menu_permission/get-permission-default','Administrator\MenuPermissionController@getPermissionDefault');
 	Route::get('menu_permission/get-permission-data/{id}','Administrator\MenuPermissionController@getPermissionData');
 	Route::get('menu_permission/get-data-permission/{id}','Administrator\MenuPermissionController@getDataPermission');
@@ -194,6 +197,13 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::patch('menu_permission/save-edit-permission/{id}','Administrator\MenuPermissionController@updatePermission');
 	Route::delete('menu_permission/delete-permission/{id}','Administrator\MenuPermissionController@destroyPermission');
 
+	// Administrstor - Activity Log
+	Route::get('activitylog','Administrator\ActivitylogController@index');
+	Route::get('activitylog/get-logs','Administrator\ActivitylogController@getActivitylog');
+	Route::get('activitylog/get-logs-details/{id}','Administrator\ActivitylogController@show');
+	Route::delete('activitylog/delete-logs/{id}','Administrator\ActivitylogController@destroy');
+	Route::get('activitylog/clean-logs','Administrator\ActivitylogController@clean');
+
 	// Route::get('itemCRUD2',['as'=>'itemCRUD2.index','uses'=>'ItemCRUD2Controller@index','middleware' => ['permission:item-list|item-create|item-edit|item-delete']]);
 	// Route::get('itemCRUD2/create',['as'=>'itemCRUD2.create','uses'=>'ItemCRUD2Controller@create','middleware' => ['permission:item-create']]);
 	// Route::post('itemCRUD2/create',['as'=>'itemCRUD2.store','uses'=>'ItemCRUD2Controller@store','middleware' => ['permission:item-create']]);
@@ -202,7 +212,7 @@ Route::group(['middleware' => ['auth']], function() {
 	// Route::patch('itemCRUD2/{id}',['as'=>'itemCRUD2.update','uses'=>'ItemCRUD2Controller@update','middleware' => ['permission:item-edit']]);
 	// Route::delete('itemCRUD2/{id}',['as'=>'itemCRUD2.destroy','uses'=>'ItemCRUD2Controller@destroy','middleware' => ['permission:item-delete']]);
 
-	// Administrator - Environment
+	// Settings - Environment
 	Route::get('environment','Settings\EnvironmentController@index');
 	Route::get('environment/get-env','Settings\EnvironmentController@getEnv');
 	Route::get('environment/create','Settings\EnvironmentController@create');
@@ -211,7 +221,7 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::patch('environment/{name}','Settings\EnvironmentController@update');
 	Route::get('environment/delete-env/{name}','Settings\EnvironmentController@destroy');
 
-	// Administrator - Backup
+	// Settings - Backup
 	Route::get('backup','Settings\BackupController@index');
 	Route::get('backup/get-backup-data','Settings\BackupController@getBackupData');
 	Route::get('backup/backup','Settings\BackupController@backup');

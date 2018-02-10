@@ -7,7 +7,11 @@
     <div class="modal-body">
       {!! Form::model($employees, ['method' => 'PATCH', 'class' => 'form-horizontal', 'id' => 'form-edit-employees']) !!}
         <div class="row">
-          <div id="alert"></div>
+          <div class="alert alert-danger fade in m-b-15" role="alert" hidden>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button><div id="alert"></div>
+            </div>
           <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
               <label class="col-md-3 control-label">employees Number</label>
@@ -88,7 +92,6 @@
               </div>
             </div>
           </div>
-
         </div>
     </div>
     {!! Form::close() !!}
@@ -101,9 +104,9 @@
 <script>
 $( "#province" ).change(function() {
     $('#city option').remove();
-    $('#city').append('<option value="">-- Please Select --</option');
+    $('#city').append('<option value="">-- Please Select --</option>');
     $('#districts option').remove();
-    $('#districts').append('<option value="0">-- Please Select City --</option');
+    $('#districts').append('<option value="0">-- Please Select City --</option>');
     var ids = $('#province').val();
     if (ids != 0 ) {
       $.ajax({
@@ -121,23 +124,21 @@ $( "#province" ).change(function() {
       });
     } else {
       $('#city option').remove();
-      $('#city').append('<option value="">-- Please Select Province --</option');
+      $('#city').append('<option value="">-- Please Select Province --</option>');
       $('#districts option').remove();
-      $('#districts').append('<option value="">-- Please Select Province --</option');
+      $('#districts').append('<option value="">-- Please Select Province --</option>');
     }
-   
 });
 
 $( "#city" ).change(function() {
     $('#districts option').remove();
-    $('#districts').append('<option value="">-- Please Select --</option');
+    $('#districts').append('<option value="">-- Please Select --</option>');
     var ids = $('#city').val();
     if (ids != 0 ) {
       $.ajax({
         type:"GET",
         url: "get-district"+ "/" + ids,
         success: function(district) {
-          //console.log(district);
           var data_district = district;
           $.each(data_district, function (i, item) {
             $('#districts').append($('<option>', { 
@@ -149,8 +150,7 @@ $( "#city" ).change(function() {
       });
     } else {
       $('#districts option').remove();
-      $('#districts').append('<option value="">-- Please Select City --</option');
+      $('#districts').append('<option value="">-- Please Select City --</option>');
     }
-   
 });
 </script>

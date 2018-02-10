@@ -30,7 +30,7 @@
 	<!-- ================== BEGIN BASE CSS STYLE ================== -->
 	<link href="{{ asset('public/css/fontgoogleapis.css') }}" rel="stylesheet" />
 	<link href="{{ asset('public/plugins/jquery-ui/themes/base/minified/jquery-ui.min.css') }}" rel="stylesheet" />
-	<link href="{{ asset('public/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" />
+	<link href="{{ asset('public/plugins/bootstrap/css/bootstrap.css') }}" rel="stylesheet" />
 	<link href="{{ asset('public/plugins/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" />
 	<link href="{{ asset('public/css/animate.min.css') }}" rel="stylesheet" />
 	<link href="{{ asset('public/css/style.min.css') }}" rel="stylesheet" />
@@ -45,8 +45,7 @@
   <link href="{{ asset('public/plugins/bootstrap-datepicker/css/bootstrap-datepicker.css') }}" rel="stylesheet" />
   <link href="{{ asset('public/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.css') }}" rel="stylesheet" />
   <link href="{{ asset('public/plugins/jquery-jvectormap/jquery-jvectormap-1.2.2.css') }}" rel="stylesheet" />
-  <link href="{{ asset('public/plugins/bootstrap-datepicker/css/datepicker.css') }}" rel="stylesheet" />
-  <link href="{{ asset('public/plugins/bootstrap-datepicker/css/datepicker3.css') }}" rel="stylesheet" />
+  <link href="{{ asset('public/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.css') }}" rel="stylesheet" />
   <link href="{{ asset('public/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css') }}" rel="stylesheet" />
   <link href="{{ asset('public/plugins/gritter/css/jquery.gritter.css') }}" rel="stylesheet" />
   <link href="{{ asset('public/plugins/sweetalert/sweetalert2.min.css') }}" rel="stylesheet" />
@@ -55,6 +54,7 @@
   <link href="{{ asset('public/plugins/bootstrap3-editable/css/bootstrap-editable.css') }}" rel="stylesheet" />
   <link href="{{ asset('public/plugins/bootstrap-wizard/css/bwizard.min.css') }}" rel="stylesheet" />
   <link href="{{ asset('public/plugins/parsley/src/parsley.css') }}" rel="stylesheet" />
+  <link href="{{ asset('public/plugins/tether-1.3.3/dist/css/tether.min.css') }}" rel="stylesheet" />
   <link href="{{ asset('public/css/invoice-print.min.css') }}" rel="stylesheet" />
 	<!-- ================== END PAGE LEVEL STYLE ================== -->
 	
@@ -231,7 +231,7 @@
 									<li id="menu-permission-management"><a href="{{URL('menu_permission')}}">Menu Permission</a></li>
 								@endpermission
 								@permission('log-view')
-									<li id="log-menu"><a href="javascript:;" onclick="under_maintenance()">Log</a></li>
+									<li id="activity-log-menu"><a href="{{URL('activitylog')}}">Activity Log</a></li>
 								@endpermission
 							</ul>
 						</li>
@@ -262,8 +262,8 @@
 		<a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade" data-click="scroll-top"><i class="fa fa-angle-up"></i></a>
 		</div>
 		<!-- ================== BEGIN BASE JS ================== -->
-		<script src="{{ asset('public/plugins/jquery/jquery-1.12.4.js') }}"></script>
-		<script src="{{ asset('public/plugins/jquery/jquery-migrate-1.1.0.min.js') }}"></script>
+		<script src="{{ asset('public/plugins/jquery/jquery-1.9.1.min.js') }}"></script>
+		<script src="{{ asset('public/plugins/jquery/jquery-migrate-1.4.1.min.js') }}"></script>
 		<script src="{{ asset('public/plugins/jquery-ui/ui/minified/jquery-ui.min.js') }}"></script>
 		<script src="{{ asset('public/plugins/bootstrap/js/bootstrap.min.js') }}"></script>
 		<!--[if lt IE 9]>
@@ -276,6 +276,7 @@
 		<!-- ================== END BASE JS ================== -->
 			
 		<!-- ================== BEGIN PAGE LEVEL JS ================== -->
+		<script src="{{ asset('public/plugins/tether-1.3.3/dist/js/tether.min.js') }}"></script>
 		<script src="{{ asset('public/plugins/gritter/js/jquery.gritter.js') }}"></script>
 		<script src="{{ asset('public/js/keypress.js') }}"></script>
 		<script src="{{ asset('public/js/jquery.price_format.2.0.js') }}"></script>
@@ -291,13 +292,11 @@
 		<script src="{{ asset('public/plugins/sweetalert/core.js') }}"></script>
 		<script src="{{ asset('public/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
 		<script src="{{ asset('public/plugins/DataTables/js/jquery.dataTables.min.js') }}"></script>
+		<script src="{{ asset('public/plugins/DataTables/js/dataTables.bootstrap.min.js') }}"></script>
 		<script src="{{ asset('public/plugins/DataTables/js/dataTables.buttons.js') }}"></script>
 		<script src="{{ asset('public/plugins/DataTables/js/jquery.highlight.js') }}"></script>
 		<script src="{{ asset('public/plugins/DataTables/js/dataTables.searchHighlight.min.js') }}"></script>
 		<script src="{{ asset('public/plugins/DataTables/js/dataTables.responsive.js') }}"></script>
-		<script src="{{ asset('public/plugins/DataTables/js/dataTables.searchHighlight.min.js') }}"></script>
-		<script src="{{ asset('public/plugins/DataTables/js/jquery.highlight.js') }}"></script>
-		<script src="{{ asset('public/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
 		<script src="{{ asset('public/plugins/jquery.countdown/jquery.plugin.js') }}"></script>
 		<script src="{{ asset('public/plugins/jquery.countdown/jquery.countdown.js') }}"></script>
 		<script src="{{ asset('public/plugins/jquery-filestyle/jquery-filestyle.js') }}"></script>

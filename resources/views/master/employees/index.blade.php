@@ -1,14 +1,9 @@
 @extends('layouts.layout')
 @section('content')
-<div id="content" class="content">        
-    <!-- begin page-header -->
-    <h1 class="page-header">Master <small></small></h1>
-    <!-- end page-header -->
-
-   <!-- begin row -->
-    <div class="row">
-            <!-- begin panel -->
-      <div class="panel panel-inverse" data-sortable-id="form-stuff-5">
+<div id="content" class="content"><!-- begin content -->
+    <h1 class="page-header">Master <small></small></h1><!-- page-header -->
+    <div class="row"><!-- begin row -->
+      <div class="panel panel-inverse" data-sortable-id="form-stuff-5"><!-- begin panel -->
           <div class="panel-heading">
               <div class="panel-heading-btn">
                   <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
@@ -45,19 +40,16 @@
           </div>
       </div><!-- end panel -->
     </div><!-- end row -->
-</div>
+</div><!-- end content -->
 @endsection
-
 @push('js')
-
-<!-- datatables -->
 <script type="text/javascript">
   $('#master-menu').addClass('active');
   $('#employees-menu').addClass('active');
   var listener = new window.keypress.Listener();
   $(document).ready(function() {
   employeesTable = $('#employees_table').DataTable({
-    processing: true,
+    processing: false,
     serverSide: true,
     ajax: {
       url:'{{ url("employees/get-employees") }}', 
@@ -84,12 +76,10 @@
       { data: 'city'},
       { data: 'districts'},
       { data: 'phone'},
-      { data: 'id_method'},
-      { data: 'identity_number'},
-      
+      { data: 'identity_method'},
+      { data: 'identity_number'} 
     ]
   });
-
   $("#employees_table tbody").on("click","tr",function() { //highlight on click row
     if ($(this).hasClass("active")) {
       $(this).removeClass("active");
@@ -111,7 +101,6 @@
     }
   });
 });
-
 
 function show_modal_add_employees() {
   $.ajax({
@@ -155,16 +144,14 @@ function save_employees_data(){
     error: function(data){
       $('#alert').html('');
       if(data.status == 422) {
-        for (var error in data.responseJSON) {
-          $('#alert').append('<div class="alert alert-warning fade in m-b-15"  role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+ data.responseJSON[error] +'</div>');
-        }
+        $('.alert').removeAttr('hidden');
+        for (var error in data.responseJSON.errors) {$('#alert').append(data.responseJSON.errors[error]+'<br>')};
       } else {
-        $('#alert').append('<div class="alert alert-danger fade in m-b-15"  role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>Someting wrong, please contact administrator</div>');
+        $('#alert').append('Someting wrong, please contact administrator');
       }
     }
   })
 };
-
 
 function save_edit_employees_data(){
   var data = employeesTable.row(".active").data();
@@ -176,9 +163,7 @@ function save_edit_employees_data(){
     type:"PATCH",
     url:'employees/'+id,
     data:$('#form-edit-employees').serialize(),
-    
     success: function(data){
-      //console.log(data);
       $('#modal_employees').modal('hide');
       swal('Updated','','success');
       reload_data();
@@ -186,11 +171,10 @@ function save_edit_employees_data(){
     error: function(data){
       $('#alert').html('');
       if(data.status == 422) {
-        for (var error in data.responseJSON) {
-          $('#alert').append('<div class="alert alert-warning fade in m-b-15"  role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+ data.responseJSON[error] +'</div>');
-        }
+        $('.alert').removeAttr('hidden');
+        for (var error in data.responseJSON.errors) {$('#alert').append(data.responseJSON.errors[error]+'<br>')};
       } else {
-        $('#alert').append('<div class="alert alert-danger fade in m-b-15"  role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>Someting wrong, please contact administrator</div>');
+        $('#alert').append('Someting wrong, please contact administrator');
       }
     }
   })
@@ -200,7 +184,6 @@ function delete_employees() {
   var data = employeesTable.row(".active").data();
   var name = data["name"];
   var id = data["id"];
-
   swal({
     title: 'Are you sure?',
     text: "You won't be able to revert this!",
@@ -215,7 +198,6 @@ function delete_employees() {
       url:'employees/'+id,
       dataType: 'json',
       success: function(data){
-        //console.log(data);
         swal('Deleted!','Your data has been deleted.','success');
         reload_data();
       },

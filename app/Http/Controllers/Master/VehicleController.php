@@ -10,13 +10,9 @@ use Auth;
 use DB;
 use Datatables;
 use Carbon\Carbon;
+use Response;
 
 class VehicleController extends Controller {
-
-  public function rules() {
-
-  }
-  
 	public function index() {
 		return view('master/vehicle/index');
 	}
@@ -37,15 +33,15 @@ class VehicleController extends Controller {
       ->editColumn('vehicle_tax', function ($vehicle) {
           return $vehicle->vehicle_tax ? with(new Carbon($vehicle->vehicle_tax))->format('d M Y') : '';;
       })
-      ->filterColumn('created_at', function ($query, $keyword) {
-          $query->whereRaw("DATE_FORMAT(created_at,'%m/%d/%Y') like ?", ["%$keyword%"]);
-      })
-      ->filterColumn('updated_at', function ($query, $keyword) {
-          $query->whereRaw("DATE_FORMAT(updated_at,'%Y/%m/%d') like ?", ["%$keyword%"]);
-      })
-      ->filterColumn('vehicle_tax', function ($query, $keyword) {
-          $query->whereRaw("DATE_FORMAT(vehicle_tax,'%m/%d/%Y') like ?", ["%$keyword%"]);
-      })
+      // ->filterColumn('created_at', function ($query, $keyword) {
+      //     $query->whereRaw("DATE_FORMAT(created_at,'%m/%d/%Y') like ?", ["%$keyword%"]);
+      // })
+      // ->filterColumn('updated_at', function ($query, $keyword) {
+      //     $query->whereRaw("DATE_FORMAT(updated_at,'%Y/%m/%d') like ?", ["%$keyword%"]);
+      // })
+      // ->filterColumn('vehicle_tax', function ($query, $keyword) {
+      //     $query->whereRaw("DATE_FORMAT(vehicle_tax,'%m/%d/%Y') like ?", ["%$keyword%"]);
+      // })
       ->make(true);
  		} else {
  			return abort(404);
@@ -84,7 +80,7 @@ class VehicleController extends Controller {
     $vehicle->created_by        = Auth::user()->id;
     $vehicle->save();
 
-    return response()->json(['responseText' => 'Success'], 200);
+    return Response::json(['responseText' => 'Success'], 200);
   }
 
   public function edit($id) {
@@ -93,23 +89,14 @@ class VehicleController extends Controller {
     $vehicle_employees  = $vehicle->employees_id;
     $vehicle_tax        = new Carbon($vehicle->vehicle_tax);
     $vehicle_tax        = $vehicle_tax->format('d-m-Y');
-    return view('master/vehicle/modal_edit',
-      compact(
-        'vehicle', 
-        'vehicle_tax',
-        'employees',
-        'vehicle_employees'
-      )
-    );
+    return view('master/vehicle/modal_edit',compact('vehicle','vehicle_tax','employees','vehicle_employees'));
   }
 
-  public function update(Request $request, $id) {    
-    
+  public function update(Request $request, $id) {
     $vehicle = Vehicle::find($id);
-    
     $this->validate($request, [
       'name'            => 'required',
-      'plat_number'     => 'required|unique:vehicle,plat_number,NULL,{$vehicle->id},deleted_at,NULL',
+      'plat_number'     => 'required|unique:vehicle,plat_number,'.$vehicle->id.',id,deleted_at,NULL',
       'driver'          => 'required',
       'type'            => 'required',
       'merk'            => 'required',
@@ -131,15 +118,11 @@ class VehicleController extends Controller {
     $vehicle->status            = $request->input('status');
     $vehicle->updated_by        = Auth::user()->id;
     $vehicle->save();
-
-    return response()->json(['responseText' => 'Updated'], 200);
+    return Response::json(['responseText' => 'Updated'], 200);
   }
 
   public function destroy($id) {
-    $delete_vehicle = Vehicle::find($id);
-    $delete_vehicle->deleted_by = Auth::user()->id;
-    $delete_vehicle->save();
-    $delete_vehicle->delete();
-    return response()->json(['responseText' => 'Deleted'], 200);
+    Vehicle::find($id)->delete();
+    return Response::json(['responseText' => 'Deleted'], 200);
   }
 }

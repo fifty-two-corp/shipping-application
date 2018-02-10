@@ -21,10 +21,10 @@ class EmployeesController extends Controller {
 
  	public function getEmployees(Request $request) {
  		if($request->ajax()) {
-      $employees = Employees::with('province', 'city', 'districts', 'id_method')->get();
+      $employees = Employees::with('province', 'city', 'districts', 'identity_method')->get();
  			return Datatables::of($employees)
-      ->editColumn('id_method', function ($employees) {
-        return $employees->id_method? with($employees->id_method->name) : '';
+      ->editColumn('identity_method', function ($employees) {
+        return $employees->identity_method? with($employees->identity_method->name) : '';
       })
       ->editColumn('province', function ($employees) {
         return $employees->province? with($employees->province->name) : '';
@@ -67,7 +67,7 @@ class EmployeesController extends Controller {
     $employees->city_id             = $request->input('city');
     $employees->districts_id        = $request->input('districts');
     $employees->phone               = $request->input('phone');
-    $employees->identity_method     = $request->input('identity_method');
+    $employees->identity_method_id  = $request->input('identity_method');
     $employees->identity_number     = $request->input('identity_number');
     $employees->created_by          = Auth::user()->id;
     $employees->save();
@@ -105,10 +105,10 @@ class EmployeesController extends Controller {
 
   public function update(Request $request, $id) {
     
-    $employees = Employees::find($id);
+    $employees = Employees::with('province', 'city', 'districts', 'identity_method')->find($id);
     
     $this->validate($request, [
-      'employees_number'  => 'required|unique:employees,employees_number,NULL,{$employees->id},deleted_at,NULL',
+      'employees_number'  => 'required|unique:employees,employees_number,'.$employees->id.',id,deleted_at,NULL',
       'name'              => 'required',
       'address'           => 'required',
       'province'          => 'required',
@@ -134,10 +134,7 @@ class EmployeesController extends Controller {
   }
 
   public function destroy($id) {
-    $delete_employes = Employees::find($id);
-    $delete_employes->deleted_by = Auth::user()->id;
-    $delete_employes->save();
-    $delete_employes->delete();
+    Employees::find($id)->delete();
     return response()->json(['responseText' => 'Deleted'], 200);
   }
 }
