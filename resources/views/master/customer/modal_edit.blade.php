@@ -7,7 +7,11 @@
     <div class="modal-body">
       {!! Form::model($customer, ['method' => 'PATCH', 'class' => 'form-horizontal', 'id' => 'form-edit-customer']) !!}
         <div class="row">
-          <div id="alert"></div>
+          <div class="alert alert-danger fade in m-b-15" role="alert" hidden>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button><div id="alert"></div>
+          </div>
           <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
               <label class="col-md-3 control-label">Customer Number</label>

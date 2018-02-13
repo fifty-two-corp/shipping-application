@@ -262,7 +262,7 @@
 		<a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade" data-click="scroll-top"><i class="fa fa-angle-up"></i></a>
 		</div>
 		<!-- ================== BEGIN BASE JS ================== -->
-		<script src="{{ asset('public/plugins/jquery/jquery-1.9.1.min.js') }}"></script>
+		<script src="{{ asset('public/plugins/jquery/jquery-1.12.4.js') }}"></script>
 		<script src="{{ asset('public/plugins/jquery/jquery-migrate-1.4.1.min.js') }}"></script>
 		<script src="{{ asset('public/plugins/jquery-ui/ui/minified/jquery-ui.min.js') }}"></script>
 		<script src="{{ asset('public/plugins/bootstrap/js/bootstrap.min.js') }}"></script>

@@ -113,13 +113,12 @@ function show_modal_add_customer() {
 }
 
 function show_modal_edit_customer_cost() {
-  var data = customercostTable.row(".active").data();
-  var id = data["id"];
+  var data  = customercostTable.row(".active").data();
+  var id    = data["id"];
   $.ajax({
     type:"GET",
     url: "customer-cost/"+id+"/edit",
     success: function(res) {
-      //console.log(id);
       $('#modal_customer_cost').modal('show');
       $('#modal_customer_cost').html(res);
     }
@@ -148,7 +147,6 @@ function save_customer_cost_data(){
   })
 };
 
-
 function save_edit_customer_cost_data(){
   var data = customercostTable.row(".active").data();
   var id = data["id"];
@@ -161,7 +159,6 @@ function save_edit_customer_cost_data(){
     data:$('#form-edit-cutomer-cost').serialize(),
     
     success: function(data){
-      //console.log(data);
       $('#modal_customer_cost').modal('hide');
       swal('Updated','','success');
       reload_data();
@@ -173,9 +170,9 @@ function save_edit_customer_cost_data(){
 };
 
 function delete_customer_cost() {
-  var data = customercostTable.row(".active").data();
-  var name = data["name"];
-  var id = data["id"];
+  var data  = customercostTable.row(".active").data();
+  var name  = data["name"];
+  var id    = data["id"];
 
   swal({
     title: 'Are you sure?',

@@ -12,6 +12,7 @@ use Auth;
 use DB;
 use Datatables;
 use Indonesia;
+use Response;
 
 class EmployeesController extends Controller {
   
@@ -72,7 +73,7 @@ class EmployeesController extends Controller {
     $employees->created_by          = Auth::user()->id;
     $employees->save();
 
-    return response()->json(['responseText' => 'Success'], 200);
+    return Response::json(['responseText' => 'Success'], 200);
   }
 
   public function edit($id) {
@@ -130,7 +131,7 @@ class EmployeesController extends Controller {
     $employees->updated_by          = Auth::user()->id;
     $employees->save();
 
-    return response()->json(['responseText' => 'Updated'], 200);
+    return Response::json(['responseText' => 'Updated'], 200);
   }
 
   public function destroy($id) {

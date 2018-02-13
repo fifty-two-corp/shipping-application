@@ -161,11 +161,10 @@ function save_vehicle_data(){
     error: function(data){
       $('#alert').html('');
       if(data.status == 422) {
-        for (var error in data.responseJSON) {
-          $('#alert').append('<div class="alert alert-warning fade in m-b-15"  role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+ data.responseJSON[error] +'</div>');
-        }
+        $('.alert').removeAttr('hidden');
+        for (var error in data.responseJSON.errors) {$('#alert').append(data.responseJSON.errors[error]+'<br>')};
       } else {
-        $('#alert').append('<div class="alert alert-danger fade in m-b-15"  role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>Someting wrong, please contact administrator</div>');
+        $('#alert').append('Someting wrong, please contact administrator');
       }
     }
   })
@@ -190,11 +189,10 @@ function save_vehicle_edit_data(){
     error: function(data){
       $('#alert').html('');
       if(data.status == 422) {
-        for (var error in data.responseJSON) {
-          $('#alert').append('<div class="alert alert-warning fade in m-b-15"  role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+ data.responseJSON[error] +'</div>');
-        }
+        $('.alert').removeAttr('hidden');
+        for (var error in data.responseJSON.errors) {$('#alert').append(data.responseJSON.errors[error]+'<br>')};
       } else {
-        $('#alert').append('<div class="alert alert-danger fade in m-b-15"  role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>Someting wrong, please contact administrator</div>');
+        $('#alert').append('Someting wrong, please contact administrator');
       }
     }
   })
