@@ -134,9 +134,13 @@ class ShippingController extends Controller {
         $shipping->vendor_type      = $shipping_vendor_cost_data->type;
       }
       if ($request->payment === 'installment') {
+        $shipping->payment_type      = 'installment';
         $shipping->down_payment      = str_replace(".", "",$request->down_payment);
         $shipping->time_period       =  $request->time_period;
+      } else {
+        $shipping->payment_type      = 'pay_off';
       }
+
       $shipping->transaction_number    = 'JP-'.date('dmyHis');
       $shipping->tax_value             = str_replace('%', '', $shipping_cost['tax']);
       $shipping->tax_cost              = str_replace(',','',$shipping_cost['tax_cost']);
@@ -191,7 +195,7 @@ class ShippingController extends Controller {
         $date_now             = Carbon::now();
         $termin               = new Termin;
         $termin->shipping_id  = $shipping->id;
-        $termin->payment      = $request->down_payment;
+        $termin->payment      = str_replace(".", "",$request->down_payment);
         $termin->payment_date = $date_now->toDateTimeString();
         $termin->created_by   = Auth::user()->name;
         $termin->save();
