@@ -7,10 +7,8 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use App\VendorCost;
 use App\Vendor;
-use App\Provinces;
 use App\Customer;
 use Auth;
-use DB;
 use Datatables;
 use Indonesia;
 use Response;
@@ -150,9 +148,13 @@ class VendorcostController extends Controller {
     return Response::json(['errors' => $validator->errors()]);
   }
 
-  public function destroy($id) {
-    $delete_vendorcost = VendorCost::find($id);
-    $delete_vendorcost->delete();
-    return response()->json(['responseText' => 'Deleted'], 200);
+    /**
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
+     */
+    public function destroy($id) {
+    VendorCost::find($id)->delete();
+    return Response::json(['responseText' => 'Deleted'], 200);
   }
 }

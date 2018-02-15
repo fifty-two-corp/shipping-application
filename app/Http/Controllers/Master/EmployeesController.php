@@ -5,22 +5,26 @@ namespace App\Http\Controllers\Master;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Employees;
-use App\Provinces;
-use App\City;
 use App\IdMethod;
 use Auth;
-use DB;
 use Datatables;
 use Indonesia;
 use Response;
 
 class EmployeesController extends Controller {
-  
-	public function index() {
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function index() {
 		return view('master/employees/index');
 	}
 
- 	public function getEmployees(Request $request) {
+    /**
+     * @param Request $request
+     * @throws \Exception
+     */
+    public function getEmployees(Request $request) {
  		if($request->ajax()) {
       $employees = Employees::with('province', 'city', 'districts', 'identity_method')->get();
  			return Datatables::of($employees)
@@ -61,15 +65,15 @@ class EmployeesController extends Controller {
     ]);
 
     $employees                      = new Employees();
-    $employees->employees_number    = $request->input('employees_number');
-    $employees->name                = $request->input('name');
-    $employees->address             = $request->input('address');
-    $employees->province_id         = $request->input('province');
-    $employees->city_id             = $request->input('city');
-    $employees->districts_id        = $request->input('districts');
-    $employees->phone               = $request->input('phone');
-    $employees->identity_method_id  = $request->input('identity_method');
-    $employees->identity_number     = $request->input('identity_number');
+    $employees->employees_number    = $request->employees_number;
+    $employees->name                = $request->name;
+    $employees->address             = $request->address;
+    $employees->province_id         = $request->province;
+    $employees->city_id             = $request->city;
+    $employees->districts_id        = $request->districts;
+    $employees->phone               = $request->phone;
+    $employees->identity_method_id  = $request->identity_method;
+    $employees->identity_number     = $request->identity_number;
     $employees->created_by          = Auth::user()->id;
     $employees->save();
 
@@ -119,15 +123,15 @@ class EmployeesController extends Controller {
       'identity_number'   => 'required',
     ]);
 
-    $employees->employees_number    = $request->input('employees_number');
-    $employees->name                = $request->input('name');
-    $employees->address             = $request->input('address');
-    $employees->province_id         = $request->input('province');
-    $employees->city_id             = $request->input('city');
-    $employees->districts_id        = $request->input('districts');
-    $employees->phone               = $request->input('phone');
-    $employees->identity_method_id  = $request->input('identity_method');
-    $employees->identity_number     = $request->input('identity_number');
+    $employees->employees_number    = $request->employees_number;
+    $employees->name                = $request->name;
+    $employees->address             = $request->address;
+    $employees->province_id         = $request->province;
+    $employees->city_id             = $request->city;
+    $employees->districts_id        = $request->districts;
+    $employees->phone               = $request->phone;
+    $employees->identity_method_id  = $request->identity_method;
+    $employees->identity_number     = $request->identity_number;
     $employees->updated_by          = Auth::user()->id;
     $employees->save();
 
@@ -136,6 +140,6 @@ class EmployeesController extends Controller {
 
   public function destroy($id) {
     Employees::find($id)->delete();
-    return response()->json(['responseText' => 'Deleted'], 200);
+    return Response::json(['responseText' => 'Deleted'], 200);
   }
 }

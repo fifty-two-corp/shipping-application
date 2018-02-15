@@ -6,17 +6,24 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Service;
 use Auth;
-use DB;
+use app\Customer;
 use Datatables;
 use Carbon\Carbon;
 
 class ServiceController extends Controller {
-  
-	public function index() {
-		return view('cost/service/index');
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function index() {
+        return view('cost/service/index');
 	}
 
- 	public function getService(Request $request) {
+    /**
+     * @param Request $request
+     * @throws \Exception
+     */
+    public function getService(Request $request) {
  		if($request->ajax()) {
       $service = Service::all();
  			return Datatables::of($service)
@@ -41,17 +48,23 @@ class ServiceController extends Controller {
  		}
  	}
 
- 	public function create() {
-    return view('cost/service/modal_add');
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function create() {
+        return view('cost/service/modal_add');
  	}
 
-  public function store(Request $request) {
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function store(Request $request) {
     $this->validate($request, [
       'type_service'  => 'required|unique:service,type_service',
       'unit'          => 'required',
       'unit_price'    => 'required',
     ]);
-
     $unit_price             = str_replace(".", "", $request->input('unit_price'));
     $service                = new Service();
     $service->type_service  = $request->input('type_service');
@@ -59,37 +72,45 @@ class ServiceController extends Controller {
     $service->unit_price    = $unit_price;
     $service->created_by    = Auth::user()->id;
     $service->save();
-
     return response()->json(['responseText' => 'Success'], 200);
   }
 
-  public function edit($id) {
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function edit($id) {
     $service = Service::find($id);
     return view('cost/service/modal_edit',compact('service'));
   }
 
-  public function update(Request $request, $id) {
-    
+    /**
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function update(Request $request, $id) {
     $service = Service::find($id);
-    
     $this->validate($request, [
       'type_service'  => 'required|unique:service,type_service,'.$service->id,
       'unit'          => 'required',
       'unit_price'    => 'required',
     ]);
-    
     $unit_price               = str_replace(".", "", $request->input('unit_price'));
     $service->type_service    = $request->input('type_service');
     $service->unit            = $request->input('unit');
     $service->unit_price      = $unit_price;
     $service->updated_by      = Auth::user()->id;
     $service->save();
-
-    //return response()->json(['responseText' => 'Updated'], 200);
-    return response()->json($request);
+    return response()->json(['responseText' => 'Updated'], 200);
   }
 
-  public function destroy($id) {
+    /**
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
+     */
+    public function destroy($id) {
     $delete_service               = Customer::find($id);
     $delete_service->deleted_by   = Auth::user()->id;
     $delete_service->save();

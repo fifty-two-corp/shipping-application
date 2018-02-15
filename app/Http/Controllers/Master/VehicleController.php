@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use App\Vehicle;
 use App\Employees;
 use Auth;
-use DB;
 use Datatables;
 use Carbon\Carbon;
 use Response;

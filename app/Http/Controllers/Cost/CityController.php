@@ -4,13 +4,9 @@ namespace App\Http\Controllers\Cost;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Indonesia;
 use App\Provinces;
 use App\City;
-use Auth;
-use DB;
 use Datatables;
-use Carbon\Carbon;
 
 class CityController extends Controller {
   
@@ -88,7 +84,7 @@ class CityController extends Controller {
 
   public function updateCity(Request $request, $id) {
     $unit_price = str_replace(".", "", $request->input('unit_price'));
-    $province = $request->input('province');
+    //$province = $request->input('province');
     $city = City::find($id);
     $city->unit_price     = $unit_price;
     $city->save();

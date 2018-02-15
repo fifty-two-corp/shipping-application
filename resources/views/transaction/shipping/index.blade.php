@@ -240,7 +240,7 @@
         success: function(city) {
           var data_city = city;
           $.each(data_city, function (i, item) {
-            $('#consignee_city').append($('<option>', { 
+            $('#consignee_city').append($('<option>', {
               value: item.id,
               text : item.name
             }));
