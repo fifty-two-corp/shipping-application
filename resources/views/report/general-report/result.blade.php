@@ -5,7 +5,7 @@
 {{--</section>--}}
 <div class="container">
 	<h2>General Report</h2>
-	<button style="float: right" class="btn btn-info">Save PDF</button><br>
+	<span style="float: right"><a href="{{ url('general-report/pdf/'.$date_start.'/'.$date_ends) }}" class="btn btn-sm btn-info" target="_blank"><i class="fa fa-download"></i> PDF</a></span><br>
 	<p>Date : {{$date_range}}</p>
 	<table class="table table-bordered">
 		<thead style="background-color: whitesmoke">
