@@ -6,8 +6,8 @@
         @permission('delete-shipping')
 	       <a href="javascript:;" class="btn btn-sm btn-danger" onclick="delete_shipping()">Delete</a>
         @endpermission
-	      <a href="{{ url('shipping/pdf/invoice/'.$data->id) }}" class="btn btn-sm btn-info"><i class="fa fa-download"></i> Invoice</a>
-	      <a href="{{ url('shipping/pdf/do/'.$data->id) }}" class="btn btn-sm btn-info"><i class="fa fa-download"></i> DO</a>
+	      <a href="{{ url('shipping/pdf/invoice/'.$data->id) }}" class="btn btn-sm btn-info" target="_blank"><i class="fa fa-download"></i> Invoice</a>
+	      <a href="{{ url('shipping/pdf/do/'.$data->id) }}" class="btn btn-sm btn-info" target="_blank"><i class="fa fa-download"></i> DO</a>
 	      <a href="javascript:;" class="btn btn-sm btn-info" onclick="getManifest()"><i class="fa fa-download"></i> Manifest</a>
 	      <span class="pull-right hidden-print">
 	        @if ($data->status == 'Pending') <span class='label label-warning'>{{ $data->status }}</span>
