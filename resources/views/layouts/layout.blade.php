@@ -196,21 +196,16 @@
 								@permission('shipping-list')
 									<li id="shipping_list-menu"><a href="{{URL('shipping/shipping-list')}}">Shipping List</a></li>
 								@endpermission
+								<li id="termin_list-menu" ><a href="{{URL('termin')}}">Termin</a></li>
 							</ul>
 						</li>
 					@endpermission
 					@permission('report-view')
 						<li class="has-sub" id="report-menu">
-							<a href="javascript:;">
-								<b class="caret pull-right"></b>
+							<a href="{{URL('general-report')}}">
 								<i class="fa fa-bar-chart-o"></i>
-								<span>Report</span>
+								<span>General Report</span>
 							</a>
-							<ul class="sub-menu">
-								<li id="termin_list-menu" ><a href="{{URL('termin')}}">Installment Reports</a></li>
-								<li id="general_report-menu"><a href="{{URL('general-report')}}">Income Report</a></li>
-								<li><a href="javascript:;" onclick="under_maintenance()">Expense Report</a></li>
-							</ul>
 						</li>
 					@endpermission
 					@permission('administrator-view')

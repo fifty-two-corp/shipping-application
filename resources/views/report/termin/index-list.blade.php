@@ -59,7 +59,7 @@
 @endsection
 @push('js')
 <script type="text/javascript">
-  $('#report-menu').addClass('active');
+  $('#transaction-menu').addClass('active');
   $('#termin_list-menu').addClass('active');
   var listener = new window.keypress.Listener();
   var urlParams = new URLSearchParams(window.location.search);
