@@ -146,6 +146,7 @@ Route::group(['middleware' => ['auth']], function() {
 	//Report - General Report
 	Route::get('general-report','Report\GeneralReportController@index');
 	Route::post('general-report/report-data','Report\GeneralReportController@ReportData');
+  Route::get('general-report/pdf/{date_start}/{date_end}','Report\GeneralReportController@general_report_pdf');
 
 	// Administrator - Users
 	Route::get('users','Administrator\UsersController@index');
