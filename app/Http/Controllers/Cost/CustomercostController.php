@@ -5,20 +5,25 @@ namespace App\Http\Controllers\Cost;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\CustomerCost;
-use App\Provinces;
 use App\Customer;
 use Auth;
-use DB;
 use Datatables;
 use Indonesia;
 
 class CustomercostController extends Controller {
-  
-	public function index() {
+
+  /**
+   * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+   */
+  public function index() {
 		return view('cost/customercost/index');
 	}
 
- 	public function getCustomercost(Request $request) {
+  /**
+   * @param Request $request
+   * @throws \Exception
+   */
+  public function getCustomercost(Request $request) {
  		if($request->ajax()){
       $customer_cost = CustomerCost::with(['customer','destination_provinces','destination_city', 'origin_provinces', 'origin_city'])->get();
  			return Datatables::of($customer_cost)
@@ -40,12 +45,19 @@ class CustomercostController extends Controller {
  		}
  	}
 
- 	public function create() {
+  /**
+   * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+   */
+  public function create() {
     $customer = Customer::all()->pluck('name','id');
     $province = Indonesia::allProvinces()->pluck('name','id');
     return view('cost/customercost/modal_add', compact('province', 'customer'));
  	}
 
+  /**
+   * @param Request $request
+   * @return \Illuminate\Http\JsonResponse
+   */
   public function store(Request $request) {
     $this->validate($request, [
       'customer'          => 'required',
@@ -71,6 +83,10 @@ class CustomercostController extends Controller {
     return response()->json(['responseText' => 'Success'], 200);
   }
 
+  /**
+   * @param $id
+   * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+   */
   public function edit($id) {
     $customercost           = CustomerCost::find($id);
     $province               = Indonesia::allProvinces()->pluck('name','id');
@@ -102,6 +118,11 @@ class CustomercostController extends Controller {
     );
   }
 
+  /**
+   * @param Request $request
+   * @param $id
+   * @return \Illuminate\Http\JsonResponse
+   */
   public function update(Request $request, $id) {
     $this->validate($request, [
       'customer'          => 'required',
@@ -126,9 +147,13 @@ class CustomercostController extends Controller {
     return response()->json(['responseText' => 'Updated'], 200);
   }
 
+  /**
+   * @param $id
+   * @return \Illuminate\Http\JsonResponse
+   * @throws \Exception
+   */
   public function destroy($id) {
-    $delete_customercost = CustomerCost::find($id);
-    $delete_customercost->delete();
+    CustomerCost::find($id)->delete();
     return response()->json(['responseText' => 'Deleted'], 200);
   }
 }

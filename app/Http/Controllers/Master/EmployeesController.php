@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Employees;
 use App\IdMethod;
+use App\Vehicle;
 use Auth;
 use Datatables;
 use Indonesia;

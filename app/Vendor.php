@@ -24,6 +24,15 @@ class Vendor extends Model {
     'phone'
   ];
 
+  protected static function boot() {
+    parent::boot();
+    static::deleting(function($vendor) {
+      foreach ($vendor->vendor_cost()->get() as $vendor_cost) {
+        $vendor_cost->delete();
+      }
+    });
+  }
+
   public function created_user() {
     return $this->belongsTo('App\User', 'created_by');
   }

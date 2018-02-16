@@ -33,6 +33,43 @@ class Shipping extends Model {
     'updated_at'
   ];
 
+  /**
+   * Delete data relation
+   */
+  protected static function boot() {
+    parent::boot();
+    static::deleting(function($shipping) {
+      foreach ($shipping->termin()->get() as $termin) {
+        $termin->delete();
+      }
+    });
+    static::deleting(function($shipping) {
+      foreach ($shipping->shipping_destination()->get() as $shipping_destination) {
+        $shipping_destination->delete();
+      }
+    });
+    static::deleting(function($shipping) {
+      foreach ($shipping->shipping_customer()->get() as $shipping_customer) {
+        $shipping_customer->delete();
+      }
+    });
+    static::deleting(function($shipping) {
+      foreach ($shipping->shipping_vendor()->get() as $shipping_vendor) {
+        $shipping_vendor->delete();
+      }
+    });
+    static::deleting(function($shipping) {
+      foreach ($shipping->load_list()->get() as $load_list) {
+        $load_list->delete();
+      }
+    });
+    static::deleting(function($shipping) {
+      foreach ($shipping->shipping_vehicle()->get() as $shipping_vehicle) {
+        $shipping_vehicle->delete();
+      }
+    });
+  }
+
   public function created_user() {
     return $this->belongsTo('App\User', 'created_by');
   }

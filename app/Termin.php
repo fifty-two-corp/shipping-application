@@ -3,12 +3,15 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 class Termin extends Model {
+  use SoftDeletes;
   use LogsActivity;
 
   protected $table = 'termin_payment';
+  protected $dates = ['deleted_at'];
   protected $guarded = [];
   protected static $logAttributes = [
     'id',

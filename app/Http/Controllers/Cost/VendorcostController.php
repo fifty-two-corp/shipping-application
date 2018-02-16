@@ -14,12 +14,19 @@ use Indonesia;
 use Response;
 
 class VendorcostController extends Controller {
-  
-	public function index() {
+
+  /**
+   * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+   */
+  public function index() {
 		return view('cost/vendorcost/index');
 	}
 
- 	public function getVendorcost(Request $request) {
+  /**
+   * @param Request $request
+   * @throws \Exception
+   */
+  public function getVendorcost(Request $request) {
  		if($request->ajax()){
       $vendor_cost = VendorCost::with(['vendor','customer','destination_provinces','destination_city', 'origin_provinces', 'origin_city'])->get();
  			return Datatables::of($vendor_cost)
@@ -44,13 +51,20 @@ class VendorcostController extends Controller {
  		}
  	}
 
- 	public function create() {
+  /**
+   * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+   */
+  public function create() {
     $vendor   = Vendor::all()->pluck('name','id')->toArray();
     $customer = Customer::all()->pluck('name','id')->toArray();
     $province = Indonesia::allProvinces()->pluck('name','id')->toArray();
     return view('cost/vendorcost/modal_add', compact('province', 'vendor', 'customer'));
  	}
 
+  /**
+   * @param Request $request
+   * @return \Illuminate\Http\JsonResponse
+   */
   public function store(Request $request) {
 
    $validator = Validator::make($request->all(), [
@@ -83,6 +97,10 @@ class VendorcostController extends Controller {
     return Response::json(['errors' => $validator->errors()]);
   }
 
+  /**
+   * @param $id
+   * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+   */
   public function edit($id) {
     $vendorcost           = VendorCost::find($id);
     $province             = Indonesia::allProvinces()->pluck('name','id');
@@ -118,6 +136,11 @@ class VendorcostController extends Controller {
     );
   }
 
+  /**
+   * @param Request $request
+   * @param $id
+   * @return \Illuminate\Http\JsonResponse
+   */
   public function update(Request $request, $id) {
 
     $validator = Validator::make($request->all(), [

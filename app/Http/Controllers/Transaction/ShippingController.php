@@ -19,7 +19,6 @@ use App\ShippingVehicle;
 use App\Termin;
 use Indonesia;
 use Auth;
-use DB;
 use PDF;
 use Validator;
 use Response;
@@ -230,7 +229,7 @@ class ShippingController extends Controller {
       $due_date = Carbon::parse($due_date)->toFormattedDateString();
       $pdf = PDF::loadView('transaction/invoice/index', compact('data', 'date', 'due_date'))
       ->setPaper('A4');
-      return $pdf->download('invoice #('.$id.').pdf', $headers);
+      return $pdf->stream('invoice #('.$id.').pdf', $headers);
       //return view('transaction/invoice/invoice-pdf', compact('data', 'date'));
     }
 
@@ -240,10 +239,10 @@ class ShippingController extends Controller {
       $date = Carbon::parse($data->created_at)->toFormattedDateString();
       $due_date = date('Y-m-d', strtotime('+'.$data->time_period.'days', strtotime($data->created_at)));
       $due_date = Carbon::parse($due_date)->toFormattedDateString();
-      $pdf = PDF::loadView('transaction/invoice/index', compact('data', 'date', 'due_date'))
+      $pdf = PDF::loadView('transaction/do/index', compact('data', 'date', 'due_date'))
       ->setPaper('A4');
-      //return $pdf->download('invoice.pdf', $headers);
-      return view('transaction/do/index', compact('data', 'date', 'due_date'));
+      return $pdf->stream('invoice.pdf', $headers);
+      //return view('transaction/do/index', compact('data', 'date', 'due_date'));
       //return Response::json($data);
     }
 
@@ -344,7 +343,7 @@ class ShippingController extends Controller {
         $shipping_vehicle->save();
       } else {
         $shipping_vehicle                           = ShippingVehicle::where('shipping_id', '=', $shipping->id);
-        $shipping_vehicle->delete();
+        $shipping_vehicle->forceDelete();
       }
 
       if ($shipping->shipping_method == 'vendor') {
@@ -357,11 +356,13 @@ class ShippingController extends Controller {
       return response()->json(['responseText' => 'Updated'], 200);
     }
 
-    public function destroy($id) {
-      $delete_customer = Shipping::find($id);
-      $delete_customer->deleted_by = Auth::user()->id;
-      $delete_customer->save();
-      $delete_customer->delete();
+  /**
+   * @param $id
+   * @return \Illuminate\Http\JsonResponse
+   * @throws \Exception
+   */
+  public function destroy($id) {
+      Shipping::find($id)->delete();
       return response()->json(['responseText' => 'Deleted'], 200);
     }
 }

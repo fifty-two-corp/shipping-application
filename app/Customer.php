@@ -25,6 +25,15 @@ class Customer extends Model {
     'npwp'
   ];
 
+  protected static function boot() {
+    parent::boot();
+    static::deleting(function($customer) {
+      foreach ($customer->customer_cost()->get() as $customer_cost) {
+        $customer_cost->delete();
+      }
+    });
+  }
+
   public function created_user() {
     return $this->belongsTo('App\User', 'created_by');
   }

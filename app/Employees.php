@@ -26,6 +26,16 @@ class Employees extends Model {
     'identity_number'
   ];
 
+  protected static function boot() {
+    parent::boot();
+    static::deleting(function($employess) {
+      foreach ($employess->vehicle()->get() as $vehicle) {
+        $vehicle->employees_id = null;
+        $vehicle->save();
+      }
+    });
+  }
+
   public function created_user() {
     return $this->belongsTo('App\User', 'created_by');
   }
