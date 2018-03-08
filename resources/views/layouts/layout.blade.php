@@ -131,7 +131,7 @@
 				</ul>
 				<ul class="nav">
 					<li class="nav-header">Navigation</li>
-					@permission('dashboard-view')
+					@permission('dashboard-menu')
 						<li class="has-sub" id="dashboard-menu">
 							<a href="{{URL('/')}}">
 							<i class="fa fa-home"></i>
@@ -139,7 +139,7 @@
 							</a>
 						</li>
 					@endpermission
-					@permission('master-view')
+					@permission('master-menu')
 						<li class="has-sub" id="master-menu">
 							<a href="javascript:;">
 								<b class="caret pull-right"></b>
@@ -162,7 +162,7 @@
 							</ul>
 						</li>
 					@endpermission
-					@permission('cost-view')
+					@permission('cost-menu')
 						<li class="has-sub" id="cost-menu">
 							<a href="javascript:;">
 								<b class="caret pull-right"></b>
@@ -182,7 +182,7 @@
 							</ul>
 						</li>
 					@endpermission
-					@permission('transaction-view')
+					@permission('transaction-menu')
 						<li class="has-sub" id="transaction-menu">
 							<a href="javascript:;">
 								<b class="caret pull-right"></b>
@@ -200,15 +200,24 @@
 							</ul>
 						</li>
 					@endpermission
-					@permission('report-view')
+					@permission('report-menu')
 						<li class="has-sub" id="report-menu">
-							<a href="{{URL('general-report')}}">
+							<a href="javascript:;">
+								<b class="caret pull-right"></b>
 								<i class="fa fa-bar-chart-o"></i>
-								<span>General Report</span>
+								<span>Report</span>
 							</a>
+							<ul class="sub-menu">
+								@permission('view-general-report')
+									<li id="termin_list-menu" ><a href="{{URL('general-report')}}">General Report</a></li>
+								@endpermission
+								@permission('do-out-list')
+									<li id="do-report-menu" ><a href="{{URL('do-report')}}">DO Out</a></li>
+								@endpermission
+							</ul>
 						</li>
 					@endpermission
-					@permission('administrator-view')
+					@permission('administrator-menu')
 						<li class="has-sub" id="administrator-menu">
 							<a href="javascript:;">
 								<b class="caret pull-right"></b>
@@ -222,28 +231,31 @@
 								@permission('role-list')
 									<li id="role-management-menu"><a href="{{URL('roles')}}">Role Management</a></li>
 								@endpermission
-								@permission('permission-list')
-									<li id="menu-permission-management"><a href="{{URL('menu_permission')}}">Menu Permission</a></li>
+								@permission('view-settings')
+								<li id="settings-menu"><a href="{{URL('settings')}}">Settings</a></li>
 								@endpermission
-								@permission('log-view')
+								@permission('log-list')
 									<li id="activity-log-menu"><a href="{{URL('activitylog')}}">Activity Log</a></li>
+								@endpermission
+								@permission('backup-list')
+									<li id="backup-management-menu"><a href="{{URL('backup')}}">Backup</a></li>
 								@endpermission
 							</ul>
 						</li>
 					@endpermission
-					@permission('settings-view')
+					@permission('settings-menu')
 						<li class="has-sub" id="settings-menu">
 							<a href="javascript:;">
 								<b class="caret pull-right"></b>
 								<i class="fa fa-gears"></i>
-								<span>Settings</span>
+								<span>App Settings</span>
 							</a>
 							<ul class="sub-menu">
-								@permission('environment-view')
-									<li id="environment-menu"><a href="{{URL('environment')}}">Environment</a></li>
+								@permission('permission-list')
+									<li id="menu-permission-management"><a href="{{URL('menu_permission')}}">Menu Permission</a></li>
 								@endpermission
-								@permission('backup-view')
-									<li id="backup-management-menu"><a href="{{URL('backup')}}">Backup</a></li>
+								@permission('environment-list')
+									<li id="environment-menu"><a href="{{URL('environment')}}">Environment</a></li>
 								@endpermission
 							</ul>
 						</li>
@@ -310,7 +322,9 @@
 		<script src="{{ asset('public/js/apps.min.js') }}"></script>
 		<!-- ================== END PAGE LEVEL JS ================== -->
 		@stack('js')
+
 		<script>
+
 			$(document).ajaxStart(function(){
 			    $("#body").LoadingOverlay("show", {size : "20%", color : "rgba(255, 255, 255, 0.6)", image : '{{ url("public/img/giphy.gif") }}',});
 			});
@@ -318,6 +332,7 @@
 			  	$("#body").LoadingOverlay("hide", true);
 			});
 		$(document).ready(function() {
+
 			App.init();
 		});
 
