@@ -16,9 +16,15 @@
         <div class="col-md-6">
           <div class="panel-body">
             <div class="email-btn-row">
-              <a href="javascript:;" id="btn_new_parent" class="btn btn-sm btn-primary" onclick="show_modal_parent()">New Parent Menu</a>
-              <a href="javascript:;" id="btn_edit_parent" class="btn btn-sm btn-default disabled btn_dynamic_parent" onclick="show_modal_edit_parent()">Edit</a>
-              <a href="javascript:;" id="btn_delete_parent" class="btn btn-sm btn-default disabled btn_dynamic_parent" onclick="delete_parent()">Delete</a>
+              @permission('create-permission')
+                <a href="javascript:;" id="btn_new_parent" class="btn btn-sm btn-primary" onclick="show_modal_parent()">New Parent Menu</a>
+              @endpermission
+              @permission('update-permission')
+                <a href="javascript:;" id="btn_edit_parent" class="btn btn-sm btn-default disabled btn_dynamic_parent" onclick="show_modal_edit_parent()">Edit</a>
+              @endpermission
+              @permission('delete-permission')
+                <a href="javascript:;" id="btn_delete_parent" class="btn btn-sm btn-default disabled btn_dynamic_parent" onclick="delete_parent()">Delete</a>
+              @endpermission
               <a href="javascript:;" onclick="reload_data_parent()" class="btn btn-sm btn-success"><i class="fa fa-refresh"></i></a>
             </div>
             <hr>
@@ -58,7 +64,7 @@
 
 <!-- datatables -->
 <script type="text/javascript">
-  $('#administrator-menu').addClass('active');
+  $('#settings-menu').addClass('active');
   $('#menu-permission-management').addClass('active');
   var listener = new window.keypress.Listener();
   $(document).ready(function() {

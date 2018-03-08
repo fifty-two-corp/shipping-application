@@ -13,9 +13,15 @@
           </div>
           <div class="panel-body">
             <div class="email-btn-row">
+              @permission('view-log')
                 <a href="javascript:;" id="btn_view" class="btn btn-sm btn-default disabled btn_dynamic" onclick="view_log_details()">View Details</a>
+              @endpermission
+              @permission('delete-log')
                 <a href="javascript:;" id="btn_delete" class="btn btn-sm btn-default disabled btn_dynamic" onclick="delete_log()">Delete</a>
+              @endpermission
+              @permission('clear-log')
                 <a href="javascript:;" id="btn_clean" class="btn btn-sm btn-warning" onclick="clean_old_log()">Clean old Log</a>
+              @endpermission
                 <a href="javascript:;" onclick="reload_data()" class="btn btn-sm btn-success"><i class="fa fa-refresh"></i></a>
             </div>
             <hr>

@@ -1,75 +1,55 @@
 @extends('layouts.layout')
 @section('content')
-<div id="content" class="content">        
+<div id="content" class="content">
   <h1 class="page-header">Dashboard <small></small></h1>
   <div class="row">
     <!-- begin col-3 -->
-    <div class="col-md-2 col-sm-6">
+    <div class="col-md-3 col-sm-6">
       <div class="widget widget-stats bg-green">
         <div class="stats-icon"><i class="fa fa-money"></i></div>
         <div class="stats-info">
-          <h4>EARNING AFTER TAX (2018)</h4>
-          <p>{{ $total_income }}</p>    
+          <h4>TERMIN TERM DEBT</h4>
+          <p>{{ $term_dept }}</p>
         </div>
-        <div class="stats-link">
-          <a href="javascript:;">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
-        </div>
+        <div class="stats-link"><p></p></div>
       </div>
     </div>
     <!-- end col-3 -->
     <!-- begin col-3 -->
-    <div class="col-md-2 col-sm-6">
-      <div class="widget widget-stats bg-orange">
-        <div class="stats-icon"><i class="fa fa-chain-broken"></i></div>
-        <div class="stats-info">
-          <h4>INSTALLMENT TERM DEBT</h4>
-          <p>20.44%</p>   
-        </div>
-        <div class="stats-link">
-          <a href="javascript:;">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
-        </div>
-      </div>
-    </div>
-    <!-- end col-3 -->
-    <!-- begin col-3 -->
-    <div class="col-md-2 col-sm-6">
+    <div class="col-md-3 col-sm-6">
       <div class="widget widget-stats bg-red">
         <div class="stats-icon"><i class="fa fa-users"></i></div>
         <div class="stats-info">
-          <h4>DUE DATE TERMIN</h4>
-          <p>1,291,922</p>    
+          <h4>TERMIN DUE DATE</h4>
+          <p>{{ $due_date }}</p>
         </div>
-        <div class="stats-link">
-          <a href="javascript:;">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
-        </div>
+        <div class="stats-link"><p></p></div>
       </div>
     </div>
     <!-- end col-3 -->
     <!-- begin col-3 -->
-    <div class="col-md-2 col-sm-6">
-      <div class="widget widget-stats bg-blue">
-        <div class="stats-icon"><i class="fa fa-clock-o"></i></div>
+    <div class="col-md-3 col-sm-6">
+      <div class="widget widget-stats bg-orange">
+        <div class="stats-icon"><i class="fa fa-chain-broken"></i></div>
         <div class="stats-info">
           <h4>SHIPPING PENDING</h4>
           <p>{{ $shipping_pending }}</p>
         </div>
-        <div class="stats-link">
-          <a href="javascript:;">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
-        </div>
+        <div class="stats-link"><p></p></div>
       </div>
     </div>
     <!-- end col-3 -->
     <!-- begin col-3 -->
-    <div class="col-md-2 col-sm-6">
+    <div class="col-md-3 col-sm-6">
       <div class="widget widget-stats bg-blue">
         <div class="stats-icon"><i class="fa fa-clock-o"></i></div>
         <div class="stats-info">
-          <h4>SHIPPING PENDING</h4>
-          <p>{{ $shipping_pending }}</p> 
+          <div class='time-frame'>
+            <h4 id='date-part'></h4>
+            <p id='time-part'></p>
+          </div>
         </div>
-        <div class="stats-link">
-          <a href="javascript:;">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
-        </div>
+        <div class="stats-link"><p></p></div>
       </div>
     </div>
     <!-- end col-3 -->
@@ -95,9 +75,15 @@
 @endsection
 @push('js')
 <script>
-  $('#dashboard-menu').addClass('active');
-  $(document).ready(function() {
-    Dashboard.init();
-  });
+    $('#dashboard-menu').addClass('active');
+    $(document).ready(function() {
+        Dashboard.init();
+        setInterval(function() {
+            var momentNow = moment();
+            $('#date-part').html(momentNow.format('dddd')
+                .substring(0,3).toUpperCase() + ' ' + momentNow.format('DD MMMM YYYY'));
+            $('#time-part').html(momentNow.format('hh:mm:ss A'));
+        }, 100);
+    });
 </script>
 @endpush

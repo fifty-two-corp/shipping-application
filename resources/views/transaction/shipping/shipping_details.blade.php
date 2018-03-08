@@ -2,13 +2,18 @@
 	<div class="panel-body">
 		<div class="invoice">
       <div class="invoice-company">
-        <a href="javascript:;" class="btn btn-sm btn-warning" onclick="show_modal_update_shipping()">Update</a>
-        @permission('delete-shipping')
-	       <a href="javascript:;" class="btn btn-sm btn-danger" onclick="delete_shipping()">Delete</a>
+        @permission('update-shipping')
+          <a href="javascript:;" class="btn btn-sm btn-warning" onclick="show_modal_update_shipping()">Update</a>
         @endpermission
-	      <a href="{{ url('shipping/pdf/invoice/'.$data->id) }}" class="btn btn-sm btn-info" target="_blank"><i class="fa fa-download"></i> Invoice</a>
-	      <a href="{{ url('shipping/pdf/do/'.$data->id) }}" class="btn btn-sm btn-info" target="_blank"><i class="fa fa-download"></i> DO</a>
-	      <a href="javascript:;" class="btn btn-sm btn-info" onclick="getManifest()"><i class="fa fa-download"></i> Manifest</a>
+        @permission('delete-shipping')
+          <a href="javascript:;" class="btn btn-sm btn-danger" onclick="delete_shipping()">Delete</a>
+        @endpermission
+        @permission('print-invoice')
+	        <a href="{{ url('shipping/pdf/invoice/'.$data->id) }}" class="btn btn-sm btn-info" target="_blank"><i class="fa fa-download"></i>Invoice</a>
+        @endpermission
+        @permission('print-do')
+	        <a href="{{ url('shipping/pdf/do/'.$data->id) }}" class="btn btn-sm btn-info" target="_blank"><i class="fa fa-download"></i>DO</a>
+        @endpermission
 	      <span class="pull-right hidden-print">
 	        @if ($data->status == 'Pending') <span class='label label-warning'>{{ $data->status }}</span>
           @elseif ($data->status == 'On Process') <span class='label label-primary'>{{ $data->status }}</span>
@@ -114,8 +119,10 @@
           </div>
       </div>
       <div>
-          * Operational Cost : Rp. {{ number_format($data->operational_cost) }}<br />
-          @if($data->termin != null)
+          @permission('view-operational-cost')
+            * Operational Cost : Rp. {{ number_format($data->operational_cost) }}<br />
+          @endpermission
+          @if($data->payment_type === 'installment')
           	* Termin : {{ $data->time_period }} Days<br />
           	* Due Date : {{ $due_date }}<br />
           @endif
@@ -159,6 +166,7 @@
 	    url:'{{ url("shipping") }}'+'/'+ id,
 	    data:$('#form-update-shipping').serialize(),
 	    success: function(data){
+	        console.log(data);
 	      $('#modal_shipping').modal('hide');
 	      //swal('Updated','','success');
 	      $.gritter.add({
@@ -198,14 +206,6 @@
 	      });
 	    }
 	  });
-	}
-
-	function getDO() {
-	  swal('Sorry','Page under maintenance','warning');
-	}
-
-	function getManifest() {
-	  swal('Sorry','Page under maintenance','warning');
 	}
 
 	function delete_shipping() {

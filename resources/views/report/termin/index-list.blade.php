@@ -18,7 +18,9 @@
         <div class="tab-pane fade active in" id="reservation-list">
           <div class="panel-body">
             <div class="email-btn-row">
+              @permission('view-termin')
                 <a href="javascript:;" id="btn_view" class="btn btn-sm btn-default disabled btn_dynamic" onclick="show_details()">Details</a>
+              @endpermission
                 <a href="javascript:;" onclick="reload_data()" class="btn btn-sm btn-success"><i class="fa fa-refresh"></i></a>
                 <!-- <div class="col-md-2 pull-right"> 
                     <select class="form-control" id="filter_select_reservation">

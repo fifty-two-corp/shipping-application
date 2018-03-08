@@ -1,8 +1,14 @@
 <div class="panel-body">
   <div class="email-btn-row">
-    <a href="javascript:;" id="btn_new_child" class="btn btn-sm btn-primary" onclick="show_modal_child()">New Child Menu</a>
-    <a href="javascript:;" id="btn_edit_child" class="btn btn-sm btn-default disabled btn_dynamic_child" onclick="show_modal_edit_child()">Edit</a>
-    <a href="javascript:;" id="btn_delete_child" class="btn btn-sm btn-default disabled btn_dynamic_child" onclick="delete_child()">Delete</a>
+    @permission('create-permission')
+      <a href="javascript:;" id="btn_new_child" class="btn btn-sm btn-primary" onclick="show_modal_child()">New Child Menu</a>
+    @endpermission
+    @permission('update-permission')
+      <a href="javascript:;" id="btn_edit_child" class="btn btn-sm btn-default disabled btn_dynamic_child" onclick="show_modal_edit_child()">Edit</a>
+    @endpermission
+    @permission('delete-permission')
+      <a href="javascript:;" id="btn_delete_child" class="btn btn-sm btn-default disabled btn_dynamic_child" onclick="delete_child()">Delete</a>
+    @endpermission
     <a href="javascript:;" onclick="reload_data_child()" class="btn btn-sm btn-success"><i class="fa fa-refresh"></i></a>
   </div>
   <hr>

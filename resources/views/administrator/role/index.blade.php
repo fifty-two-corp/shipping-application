@@ -19,9 +19,15 @@
           </div>
           <div class="panel-body">
             <div class="email-btn-row">
+              @permission('create-role')
                 <a href="javascript:;" id="btn_new" class="btn btn-sm btn-primary" onclick="show_modal_add_role()">New Role</a>
+              @endpermission
+              @permission('update-role')
                 <a href="javascript:;" id="btn_edit" class="btn btn-sm btn-default disabled btn_dynamic" onclick="show_modal_edit_role()">Edit</a>
+              @endpermission
+              @permission('delete-role')
                 <a href="javascript:;" id="btn_delete" class="btn btn-sm btn-default disabled btn_dynamic" onclick="delete_role()">Delete</a>
+              @endpermission
                 <a href="javascript:;" onclick="reload_data()" class="btn btn-sm btn-success"><i class="fa fa-refresh"></i></a>
             </div>
             <hr>

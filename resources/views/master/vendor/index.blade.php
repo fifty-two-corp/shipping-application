@@ -18,9 +18,15 @@
           </div>
           <div class="panel-body">
             <div class="email-btn-row">
+              @permission('add-vendor')
                 <a href="javascript:;" id="btn_new" class="btn btn-sm btn-primary" onclick="show_modal_add_vendor()">New Vendor</a>
+              @endpermission
+              @permission('update-vendor')
                 <a href="javascript:;" id="btn_edit" class="btn btn-sm btn-default disabled btn_dynamic" onclick="show_modal_edit_vendor()">Edit</a>
+              @endpermission
+              @permission('delete-vendor')
                 <a href="javascript:;" id="btn_delete" class="btn btn-sm btn-default disabled btn_dynamic" onclick="delete_vendor()">Delete</a>
+              @endpermission
                 <a href="javascript:;" onclick="reload_data()" class="btn btn-sm btn-success"><i class="fa fa-refresh"></i></a>
             </div>
             <hr>

@@ -19,9 +19,15 @@
           </div>
           <div class="panel-body">
             <div class="email-btn-row">
+              @permission('create-environment')
                 <a href="javascript:;" id="btn_new" class="btn btn-sm btn-primary" onclick="show_modal_add()">Add New</a>
+              @endpermission
+              @permission('update-environment')
                 <a href="javascript:;" id="btn_edit" class="btn btn-sm btn-default disabled btn_dynamic" onclick="show_modal_edit()">Edit</a>
+              @endpermission
+              @permission('delete-environment')
                 <a href="javascript:;" id="btn_delete" class="btn btn-sm btn-default disabled btn_dynamic" onclick="delete_env()">Delete</a>
+              @endpermission
                 <a href="javascript:;" onclick="reload_data()" class="btn btn-sm btn-success"><i class="fa fa-refresh"></i></a>
             </div>
             <hr>

@@ -19,9 +19,15 @@
           </div>
           <div class="panel-body">
             <div class="email-btn-row">
+              @permission('create-backup')
                 <a href="javascript:;" id="btn_new" class="btn btn-sm btn-primary" onclick="backup()">Backup</a>
+              @endpermission
+              @permission('delete-backup')
                 <a href="javascript:;" id="btn_delete" class="btn btn-sm btn-default disabled btn_dynamic" onclick="delete_backup()">Delete</a>
+              @endpermission
+              @permission('download-backup')
                 <a href="javascript:;" id="btn_edit" class="btn btn-sm btn-default disabled btn_dynamic" onclick="download_backup()">Download</a>
+              @endpermission
                 <a href="javascript:;" onclick="reload_data()" class="btn btn-sm btn-success"><i class="fa fa-refresh"></i></a>
             </div>
             <hr>
@@ -48,7 +54,7 @@
 
 <!-- datatables -->
 <script type="text/javascript">
-  $('#settings-menu').addClass('active');
+  $('#administrator-menu').addClass('active');
   $('#backup-management-menu').addClass('active');
   var listener = new window.keypress.Listener();
   $(document).ready(function() {

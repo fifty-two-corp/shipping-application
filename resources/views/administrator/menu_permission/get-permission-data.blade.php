@@ -1,7 +1,13 @@
 <div class="email-btn-row">
-    <a href="javascript:;" id="btn_new_permission" class="btn btn-sm btn-primary" onclick="show_modal_permission()">New Permision</a>
-    <a href="javascript:;" id="btn_edit_permission" class="btn btn-sm btn-default disabled btn_dynamic_permission" onclick="show_modal_edit_permission()">Edit</a>
-    <a href="javascript:;" id="btn_delete_permission" class="btn btn-sm btn-default disabled btn_dynamic_permission" onclick="delete_permission()">Delete</a>
+    @permission('create-permission')
+        <a href="javascript:;" id="btn_new_permission" class="btn btn-sm btn-primary" onclick="show_modal_permission()">New Permision</a>
+    @endpermission
+    @permission('update-permission')
+        <a href="javascript:;" id="btn_edit_permission" class="btn btn-sm btn-default disabled btn_dynamic_permission" onclick="show_modal_edit_permission()">Edit</a>
+    @endpermission
+    @permission('delete-permission')
+        <a href="javascript:;" id="btn_delete_permission" class="btn btn-sm btn-default disabled btn_dynamic_permission" onclick="delete_permission()">Delete</a>
+    @endpermission
     <a href="javascript:;" onclick="reload_data_permission()" class="btn btn-sm btn-success"><i class="fa fa-refresh"></i></a>
 </div>
 <hr>

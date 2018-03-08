@@ -2,7 +2,9 @@
 	<div class="panel-body">
 		<div class="invoice">
       <div class="invoice-company">
-        <a href="javascript:;" class="btn btn-sm btn-warning" onclick="show_modal_add_payment()">Add Payment</a>
+        @permission('update-termin')
+          <a href="javascript:;" class="btn btn-sm btn-warning" onclick="show_modal_add_payment()">Add Payment</a>
+        @endpermission
 	      <!-- <a href="javascript:;" class="btn btn-sm btn-danger" onclick="delete_shipping()">Delete</a>
 	      <a href="{{ url('shipping/pdf/invoice/'.$data->id) }}" class="btn btn-sm btn-info"><i class="fa fa-download"></i> Invoice</a>
 	      <a href="{{ url('shipping/pdf/do/'.$data->id) }}" class="btn btn-sm btn-info"><i class="fa fa-download"></i> DO</a>

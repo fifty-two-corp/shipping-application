@@ -19,10 +19,15 @@
           </div>
           <div class="panel-body">
             <div class="email-btn-row">
+              @permission('create-user')
                 <a href="javascript:;" id="btn_new" class="btn btn-sm btn-primary" onclick="show_modal_users()">New User</a>
-                <!-- <a href="javascript:;" id="btn_view" class="btn btn-sm btn-default disabled btn_dynamic">View</a> -->
+              @endpermission
+              @permission('update-user')
                 <a href="javascript:;" id="btn_edit" class="btn btn-sm btn-default disabled btn_dynamic" onclick="show_modal_edit_users()">Edit</a>
+              @endpermission
+              @permission('delete-user')
                 <a href="javascript:;" id="btn_delete" class="btn btn-sm btn-default disabled btn_dynamic" onclick="delete_users()">Delete</a>
+              @endpermission
                 <a href="javascript:;" onclick="reload_data()" class="btn btn-sm btn-success"><i class="fa fa-refresh"></i></a>
             </div>
             <hr>

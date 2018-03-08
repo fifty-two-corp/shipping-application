@@ -205,7 +205,7 @@
                           </tr>
                       </tbody>
                     </table>
-                    <table width='0' border='0' align='left' cellpadding='0' cellspacing='0'>
+                    <table width='48%' border='0' align='left' cellpadding='0' cellspacing='0'>
                       <tbody>
                         @if($data->time_period != null)
                         <tr style="background-color:#f2f2f2">
@@ -225,18 +225,26 @@
                         </tr>
                         <tr>
                           <td width='0' align='left' valign='top' style='color:#404041;font-size:12px;line-height:16px;padding:0px 0px 3px 0px'>
-                              <strong>Bank:</strong> 
+                              <strong>Bank Name:</strong>
                           </td>
                           <td width='0' align='right' valign='top' style='color:#404041;font-size:12px;line-height:16px;padding:0px 5px 3px 5px'>
-                              Mandiri
+                              {{$bank[0]['bank_name']}}
                           </td>
                         </tr>
                         <tr>
                           <td align='left' valign='top' style='color:#404041;font-size:12px;line-height:16px;padding:5px 0px 3px 0px;'>
-                              <strong>Account Number:</strong>
+                              <strong>Bank Account:</strong>
                           </td>
                           <td width='62' align='right' valign='top' style='color:#404041;font-size:12px;line-height:16px;padding:5px 5px 3px 5px;'>
-                              123456789
+                            {{$bank[0]['bank_account']}}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td align='left' valign='top' style='color:#404041;font-size:12px;line-height:16px;padding:5px 0px 3px 0px;'>
+                            <strong>Bank Number:</strong>
+                          </td>
+                          <td width='62' align='right' valign='top' style='color:#404041;font-size:12px;line-height:16px;padding:5px 5px 3px 5px;'>
+                            {{$bank[0]['bank_number']}}
                           </td>
                         </tr>
                         @endif
