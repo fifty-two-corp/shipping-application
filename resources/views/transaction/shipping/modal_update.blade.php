@@ -53,6 +53,17 @@
                 </div>
               </div>
             </div>
+            <div class="col-xs-12 col-sm-12 col-md-12">
+              <div class="form-group">
+                <label class="col-md-3 control-label">DO Time Period</label>
+                <div class="col-md-9">
+                  <div class="input-group">
+                    {!! Form::number('do_out', $shipping->do_out_time_period, ['placeholder' => 'DO Time Period','class' => 'form-control', 'id' => 'do_out']) !!}
+                    <span class="input-group-addon">Days</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           @endif
           @if ($shipping->shipping_method == 'vendor')
             <div class="col-xs-12 col-sm-12 col-md-12">
@@ -72,7 +83,19 @@
               </div>
             </div>
           @endif
-
+          {{--<div class="col-xs-12 col-sm-12 col-md-12">--}}
+            {{--<div class="form-group">--}}
+              {{--<label class="col-md-3 control-label">DO Out</label>--}}
+              {{--<div class="col-md-9">--}}
+                {{--<div class="toggle-button toggle-button--tuuli">--}}
+                  {{--<input id='do_out_hidden' type='hidden' value='NO' name='do_out'>--}}
+                  {{--<input id="do_out" type="checkbox" value="YES" name="do_out" @if($shipping->do_out === 'YES') checked @endif>--}}
+                  {{--<label for="do_out"></label>--}}
+                  {{--<div class="toggle-button__icon"></div>--}}
+                {{--</div>--}}
+              {{--</div>--}}
+            {{--</div>--}}
+          {{--</div>--}}
         </div>
     </div>
     {!! Form::close() !!}
