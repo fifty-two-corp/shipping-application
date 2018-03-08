@@ -3,18 +3,19 @@
 		{{--<span>REPORT</span>--}}
 	{{--</h3>--}}
 {{--</section>--}}
-<div class="container">
+
+	<div class="col-lg-12">
 	<h2>General Report</h2>
 	<span style="float: right"><a href="{{ url('general-report/pdf/'.$date_start.'/'.$date_ends) }}" class="btn btn-sm btn-info" target="_blank"><i class="fa fa-download"></i> PDF</a></span><br>
 	<p>Date : {{$date_range}}</p>
-	<table class="table table-bordered">
+	<table class="table table-bordered table-responsive">
 		<thead style="background-color: whitesmoke">
 		<tr>
 			<th>Shipping</th>
 			<th>Date</th>
-			<th width="18%">Income</th>
-			<th width="18%">Tax</th>
-			<th width="18%">Operational Cost</th>
+			<th>Income</th>
+			<th>Tax</th>
+			<th>Operational Cost</th>
 		</tr>
 		</thead>
 		<tbody>
@@ -72,5 +73,6 @@
 		</tr>
 		</tfoot>
 	</table>
-</div>
+	</div>
+
 <hr>
