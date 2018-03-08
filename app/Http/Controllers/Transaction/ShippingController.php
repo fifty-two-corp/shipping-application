@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\VendorCost;
 use App\Vendor;
-use App\Provinces;
 use App\Customer;
 use App\CustomerCost;
 use App\Shipping;
@@ -17,10 +16,10 @@ use App\ShippingCustomer;
 use App\ShippingDestination;
 use App\ShippingVehicle;
 use App\Termin;
+use App\Settings;
 use Indonesia;
 use Auth;
 use PDF;
-use Validator;
 use Response;
 use Carbon\Carbon;
 use Datatables;
@@ -227,7 +226,8 @@ class ShippingController extends Controller {
       $date = Carbon::parse($data->created_at)->toFormattedDateString();
       $due_date = date('Y-m-d', strtotime('+'.$data->time_period.'days', strtotime($data->created_at)));
       $due_date = Carbon::parse($due_date)->toFormattedDateString();
-      $pdf = PDF::loadView('transaction/invoice/index', compact('data', 'date', 'due_date'))
+      $bank = Settings::get();
+      $pdf = PDF::loadView('transaction/invoice/index', compact('data', 'date', 'due_date', 'bank'))
       ->setPaper('A4');
       return $pdf->stream('invoice #('.$id.').pdf', $headers);
       //return view('transaction/invoice/invoice-pdf', compact('data', 'date'));
@@ -256,8 +256,15 @@ class ShippingController extends Controller {
 
     public function getShippingList(Request $request){
       if($request->ajax()){
-        $shipping_list = Shipping::with('shipping_vendor', 'shipping_customer', 'shipping_destination', 'shipping_vehicle')->get();
-        
+        if (Auth::user()->hasRole('customer')) {
+          $user_id = Auth::user()->id;
+          $customer_id = Customer::where('user_id', $user_id)->first();
+          $shipping_list = Shipping::with('shipping_vendor', 'shipping_destination', 'shipping_vehicle', 'shipping_customer')
+            ->whereHas('shipping_customer', function($query) use ($customer_id) {$query->where('customer_id',$customer_id->id);})
+            ->get();
+        } else {
+          $shipping_list = Shipping::with('shipping_vendor', 'shipping_customer', 'shipping_destination', 'shipping_vehicle')->get();
+        }
         return Datatables::of($shipping_list)
         ->addColumn('shipping_customer_name', function ($shipping_list) {
           return $shipping_list->shipping_customer? with($shipping_list->shipping_customer->customer_name) : '';
@@ -323,6 +330,7 @@ class ShippingController extends Controller {
       $shipping->status           = $request->input('status');
       $shipping->operational_cost = $operational_cost;
       $shipping->load_date        = $load_date;
+      $shipping->do_out_time_period           = $request->do_out;
       $shipping->updated_by       = Auth::user()->name;
       $shipping->save();
 
@@ -353,7 +361,8 @@ class ShippingController extends Controller {
         $vendor->save();
       }
 
-      return response()->json(['responseText' => 'Updated'], 200);
+      //return response()->json(['responseText' => 'Updated'], 200);
+      return response()->json($request);
     }
 
   /**

@@ -65,13 +65,12 @@ class UsersController extends Controller {
     $user       = User::find($id);
     $this->validate($request, [
         'name'      => 'required',
-        'username'  => 'required|unique:users,username,NULL,{$user->id},deleted_at,NULL',
-        'email'     => 'required|email|unique:users,email,NULL,{$user->id},deleted_at,NULL',
+        'username'  => 'required|unique:users,username,'.$user->id.',id,deleted_at,NULL',
+        'email'     => 'required|email|unique:users,email,'.$user->id.',id,deleted_at,NULL',
         'password'  => 'same:confirm-password',
         'roles'     => 'required'
     ]);
 
-    $user             = User::find($id);
     $user->name       = $request->input('name');
     $user->username   = $request->input('username');
     $user->email      = $request->input('email');

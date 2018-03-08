@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Shipping;
 use App\Termin;
 use Response;
+use Carbon\Carbon;
 //use Chartjs;
 
 class HomeController extends Controller
@@ -25,8 +26,12 @@ class HomeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request) {
+        $shipping_termin = Shipping::where('payment_type', 'installment')->get();
         $shipping_pending = Shipping::where('status', 'Pending')->count();
         $total_income = "Rp. ".number_format(Shipping::sum('cost'),0,',','.');
+        $termin_total = Termin::sum('payment');
+        $term_dept='Rp.'.number_format($shipping_termin->sum('cost') - $termin_total,0,',','.');
+        $due_date = $this->due_date();
 
         $months = [1,2,3,4,5,6,7,8,9,10,11,12];
         $year = date('Y');
@@ -44,8 +49,7 @@ class HomeController extends Controller
               ->whereMonth('created_at', $month)
               ->sum('vendor_cost');
           $earnings_default = Shipping::where('shipping_method','=', 'default')
-              ->where('payment_type','=','pay_off')
-              ->whereYear('created_at',$year)
+              ->where('payment_type','=','pay_off')->whereYear('created_at',$year)
               ->whereMonth('created_at', $month)
               ->sum('default_cost');
           $termin = Termin::whereYear('payment_date',$year)->whereMonth('payment_date', $month)->sum('payment');
@@ -55,7 +59,7 @@ class HomeController extends Controller
         $chartjs = app()->chartjs
         ->name('jujurperkasaChart')
         ->type('line')
-        ->size(['width' => 400, 'height' => 200])
+        ->size(['width' => 450, 'height' => 200])
         ->labels(['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dec'])
         ->datasets([
             [
@@ -93,6 +97,8 @@ class HomeController extends Controller
               tooltips: {
                 callbacks: {
                   label: function (tooltipItem, data) {
+                    console.log(tooltipItem);
+                    console.log( data.datasets[0])
                     return data.datasets[tooltipItem.datasetIndex].label + ' - ' +  Number(tooltipItem.yLabel).toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, \",\");
                   },
                 },
@@ -100,7 +106,7 @@ class HomeController extends Controller
               scales: {
                   yAxes: [{
                     ticks: {
-                      beginAtZero:true,
+                      
                       callback: function(value, index, values) {
                         return Number(value).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, \",\");
                       }
@@ -108,7 +114,25 @@ class HomeController extends Controller
                   }]
                 }
             }");
-        return view('home', compact('shipping_pending', 'total_income','chartjs'));
-        //return Response::json($test);
+        return view('home', compact('shipping_pending', 'total_income','chartjs', 'term_dept', 'due_date'));
+        //return Response::json($due_date);
+    }
+
+    public function due_date() {
+      $shipping_termin = Shipping::where('payment_type', 'installment')->get();
+      $date = [];
+      foreach ($shipping_termin as $dates) {
+        $date[] = date('Y-m-d', strtotime('+'.$dates->time_period.'days', strtotime($dates->created_at)));
+      }
+      foreach ($date as $due_dates) {
+        if ($due_dates <= Carbon::now()) {
+          $due_date[] = $due_dates;
+        } else {
+          $due_date = [];
+        }
+
+      }
+      $due_date  = count($due_date);
+      return $due_date;
     }
 }

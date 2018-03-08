@@ -58,14 +58,13 @@ class GeneralReportController extends Controller {
       $payoff_total = $vendor_total + $default_total;
 
       return $payoff_total;
-
     }
 
     public function general_report_pdf($date_start, $date_end) {
       $headers = ['Content-Type'=> 'application/pdf'];
       $date_range = Carbon::parse($date_start)->format('d/m/Y')." - ".Carbon::parse($date_end)->format('d/m/Y');
-
-      $transaction  = Shipping::with(['termin' => function ($query) use ($date_start, $date_end){
+      $date_end = date('Y-m-d', strtotime($date_end . ' +1 day'));
+      $transaction  = Shipping::with(['termin' => function ($query) use ($date_start, $date_end ){
         $query->whereBetween('payment_date',[$date_start, $date_end]);
       }])->with('shipping_customer', 'shipping_destination')->whereBetween('created_at',[$date_start, $date_end])->get();
 
