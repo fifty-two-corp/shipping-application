@@ -195,6 +195,7 @@ return [
         Xethron\MigrationsGenerator\MigrationsGeneratorServiceProvider::class,
         Spatie\Backup\BackupServiceProvider::class,
         Brotzka\DotenvEditor\DotenvEditorServiceProvider::class,
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
 
     ],
 
