@@ -11,3 +11,5 @@ npm-debug.log
 yarn-error.log
 .env
 *.DS_Store
+*pubic/.DS_Store
+!*/vendor/h4cc/*
