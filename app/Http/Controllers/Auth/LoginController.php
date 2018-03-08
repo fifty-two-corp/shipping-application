@@ -40,7 +40,15 @@ class LoginController extends Controller
         $this->middleware('guest', ['except' => 'logout']);
     }
 
-    protected function credentials(Request $request)
+    protected function authenticated(Request $request, $user) {
+      if ($user->hasRole('customer')) {
+        return redirect('shipping/shipping-list');
+      } else {
+        return redirect('/');
+      }
+    }
+
+  protected function credentials(Request $request)
     {
         $field = filter_var($request->get($this->username()), FILTER_VALIDATE_EMAIL)
             ? $this->username()

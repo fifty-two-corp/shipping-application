@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Master;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Customer;
+use App\User;
 use Auth;
 use Datatables;
 use Indonesia;
@@ -94,6 +95,8 @@ class CustomerController extends Controller {
     $city               = null === $city ? [] : $city->cities->pluck('name', 'id')->toArray();
     $districts          = Indonesia::findCity($city_customer, ['districts']);
     $districts          = null === $districts ? [] : $districts->districts->pluck('name', 'id')->toArray();
+    $users              = User::pluck('name', 'id')->toArray();
+    $user_id            = $customer->user_id;
     return view('master/customer/modal_edit',
       compact(
         'customer', 
@@ -102,7 +105,9 @@ class CustomerController extends Controller {
         'city_customer', 
         'city',
         'district_customer',
-        'districts'
+        'districts',
+        'users',
+        'user_id'
       )
     );
   }
@@ -131,6 +136,7 @@ class CustomerController extends Controller {
     $customer->districts_id     = $request->districts;
     $customer->phone            = $request->phone;
     $customer->npwp             = $request->npwp;
+    $customer->user_id          = $request->users;
     $customer->discount         = $request->discount;
     $customer->updated_by       = Auth::user()->id;
     $customer->save();
