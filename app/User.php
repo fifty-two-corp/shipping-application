@@ -67,4 +67,8 @@ class User extends Authenticatable {
   public function id_method() {
     return $this->hasMany('App\IdMethod');
   }
+
+  public function settings() {
+    return $this->hasMany('App\Settings');
+  }
 }
