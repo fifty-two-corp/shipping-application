@@ -26,12 +26,13 @@ class HomeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request) {
-        $shipping_termin = Shipping::where('payment_type', 'installment')->get();
+        $shipping_termin  = Shipping::where('payment_type', 'installment')->get();
         $shipping_pending = Shipping::where('status', 'Pending')->count();
-        $total_income = "Rp. ".number_format(Shipping::sum('cost'),0,',','.');
-        $termin_total = Termin::sum('payment');
-        $term_dept='Rp.'.number_format($shipping_termin->sum('cost') - $termin_total,0,',','.');
-        $due_date = $this->due_date();
+        $total_income     = "Rp. ".number_format(Shipping::sum('cost'),0,',','.');
+        $termin_total     = Termin::sum('payment');
+        $term_dept        = 'Rp.'.number_format($shipping_termin->sum('cost') - $termin_total,0,',','.');
+        $termin_due_date  = $this->termin_due_date();
+        $do_due_date      = $this->do_due_date();
 
         $months = [1,2,3,4,5,6,7,8,9,10,11,12];
         $year = date('Y');
@@ -114,13 +115,14 @@ class HomeController extends Controller
                   }]
                 }
             }");
-        return view('home', compact('shipping_pending', 'total_income','chartjs', 'term_dept', 'due_date'));
+        return view('home', compact('shipping_pending', 'total_income','chartjs', 'term_dept', 'termin_due_date','do_due_date'));
         //return Response::json($due_date);
     }
 
-    public function due_date() {
+    public function termin_due_date() {
       $shipping_termin = Shipping::where('payment_type', 'installment')->get();
       $date = [];
+      $due_date = [];
       foreach ($shipping_termin as $dates) {
         $date[] = date('Y-m-d', strtotime('+'.$dates->time_period.'days', strtotime($dates->created_at)));
       }
@@ -134,5 +136,26 @@ class HomeController extends Controller
       }
       $due_date  = count($due_date);
       return $due_date;
+    }
+
+    public function do_due_date(){
+      $shipping_do = Shipping::where('do_out_time_period','>','0')
+          ->where('shipping_method', 'default')
+          ->where('do_out_status','0')
+          ->whereNotNull('load_date')
+          ->get();
+      $date=[];
+      foreach ($shipping_do as $dates) {
+        $date[]=date('Y-m-d', strtotime('+'.$dates->do_out_time_period.'days', strtotime($dates->load_date)));
+      }
+      foreach ($date as $due_dates) {
+        if ($due_dates <= Carbon::now()) {
+          $due_date[] = $due_dates;
+        } else {
+          $due_date = [];
+        }
+      }
+      $do_due_date  = count($due_date);
+      return $do_due_date;
     }
 }

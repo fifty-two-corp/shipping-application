@@ -93,47 +93,110 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::patch('customer-cost/{id}',['as'=>'customer-cost.update','uses'=>'Cost\CustomercostController@update']);
 	Route::delete('customer-cost/{id}',['as'=>'customer-cost.delete','uses'=>'Cost\CustomercostController@destroy']);
 
-	//Master - City
-	Route::get('city','Cost\CityController@index');
-	Route::get('city/get-city/{id}','Cost\CityController@getCity');
-	Route::get('city/get-data-city/{id}','Cost\CityController@getCityData');
-	Route::get('city/get-city-default','Cost\CityController@getCityDefault');
-	Route::get('city/create-city','Cost\CityController@createCity');
-	Route::post('city/store-city','Cost\CityController@storeCity');
-	Route::get('city/{id}/edit-city','Cost\CityController@editCity');
-	Route::patch('city/{id}','Cost\CityController@updateCity');
-	Route::delete('city/city/{id}','Cost\CityController@destroyCity');
-
-	//Master - Province
-	Route::get('city/get-provinces','Cost\CityController@getProvince');
-	Route::get('city/create-province','Cost\CityController@createProvince');
-	Route::post('city/store-province','Cost\CityController@storeProvince');
-	Route::get('city/{id}/edit-province','Cost\CityController@editProvince');
-	Route::patch('province/{id}','Cost\CityController@updateProvince');
-	Route::delete('city/province/{id}','Cost\CityController@destroyProvince');
+//	//Master - City
+//	Route::get('city',['as'=>'city.index','uses'=>'Cost\CityController@index']);
+//	Route::get('city/get-city/{id}',['as'=>'city.data','uses'=>'Cost\CityController@getCity']);
+//	Route::get('city/get-data-city/{id}',['as'=>'city.get','uses'=>'Cost\CityController@getCityData']);
+//	Route::get('city/get-city-default',['as'=>'city.default','uses'=>'Cost\CityController@getCityDefault']);
+//	Route::get('city/create-city',['as'=>'city.create','uses'=>'Cost\CityController@createCity']);
+//	Route::post('city/store-city',['as'=>'city.store','uses'=>'Cost\CityController@storeCity']);
+//	Route::get('city/{id}/edit-city',['as'=>'city.edit','uses'=>'Cost\CityController@editCity']);
+//	Route::patch('city/{id}',['as'=>'city.update','uses'=>'Cost\CityController@updateCity']);
+//	Route::delete('city/city/{id}',['as'=>'city.delete','uses'=>'Cost\CityController@destroyCity']);
+//
+//	//Master - Province
+//	Route::get('city/get-provinces',['as'=>'province.get','uses'=>'Cost\CityController@getProvince']);
+//	Route::get('city/create-province','Cost\CityController@createProvince');
+//	Route::post('city/store-province','Cost\CityController@storeProvince');
+//	Route::get('city/{id}/edit-province','Cost\CityController@editProvince');
+//	Route::patch('province/{id}','Cost\CityController@updateProvince');
+//	Route::delete('city/province/{id}','Cost\CityController@destroyProvince');
 
 	//Transaction - Shipping
-	Route::get('shipping','Transaction\ShippingController@index');
-	Route::get('shipping/shipping-list','Transaction\ShippingController@ShippingList');
-	Route::get('shipping/get-shipping-list','Transaction\ShippingController@getShippingList');
-	Route::get('shipping/get-customer-data/{id}','Transaction\ShippingController@getCustomerData');
-	Route::get('shipping/get-shipping-mehod-field','Transaction\ShippingController@getShippingMethodField');
-	Route::get('shipping/get-default-form/customer/{customer}/destination/{destination}','Transaction\ShippingController@getDefaultForm');
-	Route::get('shipping/get-vendor-form/customer/{customer}/province/{province}','Transaction\ShippingController@getVendorForm');
-	Route::get('shipping/get-vendor-data/{id}','Transaction\ShippingController@getVendorData');
-	Route::get('shipping/get-vendor-shipping-type/customer/{customer}/destination/{destination}/vendor/{vendor}','Transaction\ShippingController@getVendorShippingType');
-	Route::get('shipping/get-customer-shipping-type/{id}','Transaction\ShippingController@getCustomerShippingType');
-	Route::get('shipping/get-calculation-default-cost/{id}','Transaction\ShippingController@getCalculateDefaultCost');
-	Route::get('shipping/get-calculation-vendor-cost/{id}','Transaction\ShippingController@getCalculateVendorCost');
-	Route::post('shipping/store','Transaction\ShippingController@store');
-	Route::get('shipping/{id}/edit','Transaction\ShippingController@edit');
-	Route::delete('shipping/{id}','Transaction\ShippingController@destroy');
-	Route::get('shipping/details/{id}', 'Transaction\ShippingController@getShippingDetails');
-	Route::get('shipping/invoice/{id}', 'Transaction\ShippingController@invoice');
-	Route::get('shipping/pdf/invoice/{id}', 'Transaction\ShippingController@invoicePdf');
-	Route::get('shipping/pdf/do/{id}', 'Transaction\ShippingController@doPdf');
-	Route::get('shipping/installment-form', 'Transaction\ShippingController@getInstallmentForm');
-	Route::patch('shipping/{id}','Transaction\ShippingController@update');
+	Route::get('shipping',[
+	    'as'=>'shipping.index',
+      'uses'=>'Transaction\ShippingController@index'
+  ]);
+	Route::get('shipping/shipping-list',[
+	    'as'=>'shipping.list',
+      'uses'=>'Transaction\ShippingController@ShippingList'
+  ]);
+	Route::get('shipping/get-shipping-list',[
+	    'as'=>'shipping.get-list',
+      'uses'=>'Transaction\ShippingController@getShippingList'
+  ]);
+	Route::get('shipping/get-customer-data/{id}',[
+	    'as'=>'shipping.customer-data',
+      'uses'=>'Transaction\ShippingController@getCustomerData'
+  ]);
+	Route::get('shipping/get-shipping-mehod-field',[
+	    'as'=>'shipping.method-field',
+      'uses'=>'Transaction\ShippingController@getShippingMethodField'
+  ]);
+	Route::get('shipping/get-default-form/customer/{customer}/destination/{destination}',[
+	    'as'=>'shipping.default-form',
+      'uses'=>'Transaction\ShippingController@getDefaultForm'
+  ]);
+	Route::get('shipping/get-vendor-form/customer/{customer}/province/{province}',[
+	    'as'=>'shipping.vendor-form',
+      'uses'=>'Transaction\ShippingController@getVendorForm'
+  ]);
+	Route::get('shipping/get-vendor-data/{id}',[
+	    'as'=>'shipping.vendor-data',
+      'uses'=>'Transaction\ShippingController@getVendorData'
+  ]);
+	Route::get('shipping/get-vendor-shipping-type/customer/{customer}/destination/{destination}/vendor/{vendor}',[
+	    'as'=>'shipping.vendor-type',
+      'uses'=>'Transaction\ShippingController@getVendorShippingType'
+  ]);
+	Route::get('shipping/get-customer-shipping-type/{id}',[
+	    'as'=>'shipping.customer-type',
+      'uses'=>'Transaction\ShippingController@getCustomerShippingType'
+  ]);
+	Route::get('shipping/get-calculation-default-cost/{id}',[
+	    'as'=>'shipping.calculate-default-cost',
+      'uses'=>'Transaction\ShippingController@getCalculateDefaultCost'
+  ]);
+	Route::get('shipping/get-calculation-vendor-cost/{id}',[
+	    'as'=>'shipping.calculate-vendor-cost',
+      'uses'=>'Transaction\ShippingController@getCalculateVendorCost'
+  ]);
+	Route::post('shipping/store',[
+	    'as'=>'shipping.store',
+      'uses'=>'Transaction\ShippingController@store'
+  ]);
+	Route::get('shipping/{id}/edit',[
+	    'as'=>'shipping.edit',
+      'uses'=>'Transaction\ShippingController@edit'
+  ]);
+	Route::delete('shipping/{id}',[
+	    'as'=>'shipping.delete',
+      'uses'=>'Transaction\ShippingController@destroy'
+  ]);
+	Route::get('shipping/details/{id}',[
+	    'as'=>'shipping.details',
+      'uses'=>'Transaction\ShippingController@getShippingDetails'
+  ]);
+	Route::get('shipping/invoice/{id}',[
+	    'as'=>'shipping.invoice',
+      'uses'=>'Transaction\ShippingController@invoice'
+  ]);
+	Route::get('shipping/pdf/invoice/{id}',[
+	    'as'=>'shipping.invoice-pdf',
+      'uses'=>'Transaction\ShippingController@invoicePdf'
+  ]);
+	Route::get('shipping/pdf/do/{id}',[
+	    'as'=>'shipping.do-pdf',
+      'uses'=>'Transaction\ShippingController@doPdf'
+  ]);
+	Route::get('shipping/installment-form',[
+	    'as'=>'shipping.installment-form',
+      'uses'=>'Transaction\ShippingController@getInstallmentForm'
+  ]);
+	Route::patch('shipping/{id}',[
+	    'as'=>'shipping.update',
+      'uses'=>'Transaction\ShippingController@update'
+  ]);
 
 	//Transaction - Termin
 	Route::get('termin',['as'=>'termin.index','uses'=>'Transaction\TerminController@index']);
@@ -230,4 +293,5 @@ Route::group(['middleware' => ['auth']], function() {
 	// Administrator - Settings
   Route::get('settings',['as'=>'setings.index','uses'=>'Administrator\SettingsController@index','middleware'=> ['permission:view-settings']]);
   Route::patch('settings/bank-settings/{id}',['as'=>'settings.save_data_bank','uses'=>'Administrator\SettingsController@save_data_bank','middleware'=> ['permission:update-settings']]);
+  Route::get('settings/shell',['as'=>'settings.shell','uses'=>'Administrator\SettingsController@shell']);
 });

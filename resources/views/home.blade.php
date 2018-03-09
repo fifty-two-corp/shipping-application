@@ -16,21 +16,33 @@
     </div>
     <!-- end col-3 -->
     <!-- begin col-3 -->
-    <div class="col-md-3 col-sm-6">
+    <div class="col-md-2 col-sm-4">
       <div class="widget widget-stats bg-red">
-        <div class="stats-icon"><i class="fa fa-users"></i></div>
+        <div class="stats-icon"><i class="fa fa-calendar"></i></div>
         <div class="stats-info">
           <h4>TERMIN DUE DATE</h4>
-          <p>{{ $due_date }}</p>
+          <p>{{ $termin_due_date }}</p>
         </div>
         <div class="stats-link"><p></p></div>
       </div>
     </div>
     <!-- end col-3 -->
     <!-- begin col-3 -->
-    <div class="col-md-3 col-sm-6">
+    <div class="col-md-2 col-sm-4">
+      <div class="widget widget-stats bg-red">
+        <div class="stats-icon"><i class="fa fa-file-text-o"></i></div>
+        <div class="stats-info">
+          <h4>DO DUE DATE</h4>
+          <p>{{ $do_due_date }}</p>
+        </div>
+        <div class="stats-link"><p></p></div>
+      </div>
+    </div>
+    <!-- end col-3 -->
+    <!-- begin col-3 -->
+    <div class="col-md-2 col-sm-4">
       <div class="widget widget-stats bg-orange">
-        <div class="stats-icon"><i class="fa fa-chain-broken"></i></div>
+        <div class="stats-icon"><i class="fa fa-truck"></i></div>
         <div class="stats-info">
           <h4>SHIPPING PENDING</h4>
           <p>{{ $shipping_pending }}</p>

@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 @section('content')
 <div id="content" class="content">        
-  <h1 class="page-header">Installment Reports <small></small></h1>
+  <h1 class="page-header">Termin <small></small></h1>
   <div class="row">
     <div class="panel panel-inverse panel-with-tabs">
       <div class="panel-heading p-0">
@@ -10,7 +10,7 @@
         </div>
         <div class="tab-overflow">
             <ul class="nav nav-tabs nav-tabs-inverse" id="tabs">
-                <li class="active"><a href="#reservation-list" data-toggle="tab">Installment List</a></li>
+                <li class="active"><a href="#reservation-list" data-toggle="tab">Termin List</a></li>
             </ul>
         </div>
       </div>
