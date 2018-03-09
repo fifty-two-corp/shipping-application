@@ -196,6 +196,7 @@ return [
         Spatie\Backup\BackupServiceProvider::class,
         Brotzka\DotenvEditor\DotenvEditorServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+        Collective\Remote\RemoteServiceProvider::class,
 
     ],
 
@@ -253,6 +254,7 @@ return [
         'SnappyImage' => Barryvdh\Snappy\Facades\SnappyImage::class,
         'DotenvEditor' => Brotzka\DotenvEditor\DotenvEditorFacade::class,
         'Datatables' => Yajra\DataTables\Facades\DataTables::class,
+        'SSH' => Collective\Remote\RemoteFacade::class,
     ],
 
 ];
